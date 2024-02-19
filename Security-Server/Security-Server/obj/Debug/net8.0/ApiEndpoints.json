@@ -1,0 +1,18 @@
+[
+  {
+    "ContainingType": "Security_Server.Controllers.LoginController",
+    "Method": "Login",
+    "RelativePath": "Login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "kullanici",
+        "Type": "Security_Server.Kullan\u0131c\u0131",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

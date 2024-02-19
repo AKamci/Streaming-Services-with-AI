@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "w3xIhdQcv4NmTQw4+yhNZMJ3a8WzzcxefTvaAfoEOA8=",
+  "Source": "Security-Server",
+  "BasePath": "_content/Security-Server",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
