@@ -8,78 +8,78 @@ using System.Text;
 using MongoDB.Driver;
 using MongoDB.Bson;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson.Serialization.Conventions;
+using MongoDB.Driver.Linq;
 
 namespace Security_Server.Controllers
 {
-    public class LoginController : Controller
+    [ApiController]
+    [Route("api/[controller]")]
+    public class LoginController : ControllerBase
     {
-        private IMongoCollection<BsonDocument> _collection;
-        private readonly JWT_Settings _jwtSettings;
+        private readonly LoginService _loginService;
 
-        public LoginController(IOptions<JWT_Settings> jwtSettings)
+        public LoginController(LoginService loginService) =>
+            _loginService = loginService;
+
+        [HttpGet]
+        public async Task<List<Kullanıcı>> Get() =>
+            await _loginService.GetAsync();
+
+        [HttpGet("{eposta:length(36)}")]
+        public async Task<ActionResult<Kullanıcı>> Get(string eposta)
         {
-            _jwtSettings = jwtSettings.Value;
-            string connectionString = "mongodb://localhost:27017";
-            var client = new MongoClient(connectionString);
-            var database = client.GetDatabase("Client_Information");
-            var _collection = database.GetCollection<BsonDocument>("Login_Information");
-        }
+            var kullanici = await _loginService.GetAsync(eposta);
 
-        [HttpPost("Login")]
-        [AllowAnonymous]
-        public IActionResult Login([FromBody] Kullanıcı kullanici)
-        {
-            var user = IdentityControl(kullanici);
-
-            if (user == null)
+            if (kullanici is null)
             {
-                return NotFound("Hatalı Giriş");
-            }
-            else
-            {
-                var token = CreateToken(user);
-                return Ok(token);
+                return NotFound();
             }
 
+            return kullanici;
         }
 
-        public string CreateToken(BsonDocument user)
+        [HttpPost]
+        public async Task<IActionResult> Post(Kullanıcı kullanici)
         {
-            if (_jwtSettings.Key == null)
-            {
-                throw new Exception("JWT KEY NULL OLMAMALI");
-            }
-            else
-            {
-                var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_jwtSettings.Key));
-                var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
+            await _loginService.CreateAsync(kullanici);
 
-                var claimDizisi = new[]
-                {
-            new Claim(ClaimTypes.NameIdentifier, "Deneme"),
-            new Claim(ClaimTypes.Name, "Deneme2")
-        };
-
-                var token = new JwtSecurityToken(_jwtSettings.Issuer,
-
-                    _jwtSettings.Audience,
-                    claimDizisi,
-                expires: DateTime.Now.AddHours(10),
-                    signingCredentials: credentials);
-                return new JwtSecurityTokenHandler().WriteToken(token);
-
-            }
+            return CreatedAtAction(nameof(Get), new { id = kullanici.Id }, kullanici);
         }
 
-        public BsonDocument IdentityControl(Kullanıcı kullanici)
+        [HttpPut("{id:length(24)}")]
+        public async Task<IActionResult> Update(string id, Kullanıcı updatedkullanici)
         {
-            var filter = Builders<BsonDocument>.Filter.Eq(kullanici.Email, "deneme@gmail.com");
+            var kullanici = await _loginService.GetAsync(id);
 
-            var documents = _collection.Find(filter).FirstOrDefault();
-            
-            return documents;
+            if (kullanici is null)
+            {
+                return NotFound();
+            }
 
+            updatedkullanici.Id = kullanici.Id;
+
+            await _loginService.UpdateAsync(id, updatedkullanici);
+
+            return NoContent();
         }
+
+        [HttpDelete("{id:length(24)}")]
+        public async Task<IActionResult> Delete(string id)
+        {
+            var kullanici = await _loginService.GetAsync(id);
+
+            if (kullanici is null)
+            {
+                return NotFound();
+            }
+
+            await _loginService.RemoveAsync(id);
+
+            return NoContent();
+        }
+
+
 
     }
 }

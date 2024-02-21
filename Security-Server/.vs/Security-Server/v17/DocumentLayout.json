@@ -7,24 +7,12 @@
       "RelativeMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|solutionrelative:security-server\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\security-server\\security-server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|solutionrelative:security-server\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\security-server\\security-server\\loginservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|solutionrelative:security-server\\loginservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\security-server\\security-server\\kullan\u0131c\u0131.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|solutionrelative:security-server\\kullan\u0131c\u0131.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\security-server\\security-server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|solutionrelative:security-server\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\security-server\\security-server\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|solutionrelative:security-server\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\security-server\\security-server\\jwt_settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|solutionrelative:security-server\\jwt_settings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\security-server\\security-server\\client_informationdatabasesettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{AAF6E30C-92A0-4A1C-8CFF-64752F76BCFF}|Security-Server\\Security-Server.csproj|solutionrelative:security-server\\client_informationdatabasesettings.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +22,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,66 +30,28 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "launchSettings.json",
-              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\Properties\\launchSettings.json",
-              "RelativeDocumentMoniker": "Security-Server\\Properties\\launchSettings.json",
-              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\Properties\\launchSettings.json",
-              "RelativeToolTip": "Security-Server\\Properties\\launchSettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-02-19T20:36:16.809Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Kullan\u0131c\u0131.cs",
-              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\Kullan\u0131c\u0131.cs",
-              "RelativeDocumentMoniker": "Security-Server\\Kullan\u0131c\u0131.cs",
-              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\Kullan\u0131c\u0131.cs",
-              "RelativeToolTip": "Security-Server\\Kullan\u0131c\u0131.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAhAAAA",
+              "Title": "Client_InformationDatabaseSettings.cs",
+              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\Client_InformationDatabaseSettings.cs",
+              "RelativeDocumentMoniker": "Security-Server\\Client_InformationDatabaseSettings.cs",
+              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\Client_InformationDatabaseSettings.cs",
+              "RelativeToolTip": "Security-Server\\Client_InformationDatabaseSettings.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-19T15:37:06.778Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "JWT_Settings.cs",
-              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\JWT_Settings.cs",
-              "RelativeDocumentMoniker": "Security-Server\\JWT_Settings.cs",
-              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\JWT_Settings.cs",
-              "RelativeToolTip": "Security-Server\\JWT_Settings.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-19T15:34:42.105Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\Program.cs",
-              "RelativeDocumentMoniker": "Security-Server\\Program.cs",
-              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\Program.cs",
-              "RelativeToolTip": "Security-Server\\Program.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAAAoAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-19T15:33:51.479Z",
+              "WhenOpened": "2024-02-21T12:39:43.757Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\appsettings.json",
-              "RelativeDocumentMoniker": "Security-Server\\appsettings.json",
-              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\appsettings.json",
-              "RelativeToolTip": "Security-Server\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-02-19T15:33:50.147Z",
+              "Title": "LoginService.cs",
+              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\LoginService.cs",
+              "RelativeDocumentMoniker": "Security-Server\\LoginService.cs",
+              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\LoginService.cs",
+              "RelativeToolTip": "Security-Server\\LoginService.cs",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-21T12:03:56.417Z",
               "EditorCaption": ""
             },
             {
@@ -112,9 +62,9 @@
               "RelativeDocumentMoniker": "Security-Server\\Controllers\\LoginController.cs",
               "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Security-Server\\Security-Server\\Controllers\\LoginController.cs",
               "RelativeToolTip": "Security-Server\\Controllers\\LoginController.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAIAwwB0AAABCAAAA",
+              "ViewState": "AQIAADkAAAAAAAAAAAAYwEsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-19T15:32:59.256Z",
+              "WhenOpened": "2024-02-21T12:03:53.18Z",
               "EditorCaption": ""
             }
           ]
