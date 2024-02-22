@@ -10,76 +10,37 @@ using MongoDB.Bson;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson.Serialization.Conventions;
 using MongoDB.Driver.Linq;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Security_Server.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
+    [ApiController]
     public class LoginController : ControllerBase
     {
         private readonly LoginService _loginService;
+        private readonly JWT_Settings _jwtAyarlari;
 
-        public LoginController(LoginService loginService) =>
-            _loginService = loginService;
-
-        [HttpGet]
-        public async Task<List<Kullanıcı>> Get() =>
-            await _loginService.GetAsync();
-
-        [HttpGet("{eposta:length(36)}")]
-        public async Task<ActionResult<Kullanıcı>> Get(string eposta)
+        public LoginController(LoginService loginService, IOptions<JWT_Settings> jwtAyarlari)
         {
-            var kullanici = await _loginService.GetAsync(eposta);
-
-            if (kullanici is null)
-            {
-                return NotFound();
-            }
-
-            return kullanici;
+            _loginService = loginService;
+            _jwtAyarlari = jwtAyarlari.Value;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Kullanıcı kullanici)
+        public async Task<IActionResult> Login(Kullanıcı kullanici)
         {
-            await _loginService.CreateAsync(kullanici);
+            var token = await _loginService.Giris(kullanici);
 
-            return CreatedAtAction(nameof(Get), new { id = kullanici.Id }, kullanici);
-        }
-
-        [HttpPut("{id:length(24)}")]
-        public async Task<IActionResult> Update(string id, Kullanıcı updatedkullanici)
-        {
-            var kullanici = await _loginService.GetAsync(id);
-
-            if (kullanici is null)
+            if (token is null)
             {
-                return NotFound();
+                return NotFound("Kullanıcı Bulunamadı");
             }
-
-            updatedkullanici.Id = kullanici.Id;
-
-            await _loginService.UpdateAsync(id, updatedkullanici);
-
-            return NoContent();
-        }
-
-        [HttpDelete("{id:length(24)}")]
-        public async Task<IActionResult> Delete(string id)
-        {
-            var kullanici = await _loginService.GetAsync(id);
-
-            if (kullanici is null)
+            else
             {
-                return NotFound();
+                return Ok(token);
             }
-
-            await _loginService.RemoveAsync(id);
-
-            return NoContent();
-        }
-
-
-
+            
+        }      
     }
 }

@@ -8,6 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.Configure<Client_InformationDatabaseSettings>(
     builder.Configuration.GetSection("Client_InformationDatabase"));
 
+builder.Services.AddSingleton<AES_Keys>();
 builder.Services.AddSingleton<LoginService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
