@@ -12,10 +12,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\" />
     <Folder Include="Datalayer\Context\" />
     <Folder Include="Datalayer\Services\Abstract\" />
     <Folder Include="Datalayer\Services\Concrete\" />
-    <Folder Include="Models\" />
   </ItemGroup>
 
 </Project>
