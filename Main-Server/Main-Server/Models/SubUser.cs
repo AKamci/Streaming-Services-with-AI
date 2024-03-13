@@ -18,6 +18,10 @@
 
         public List<Movie> Movies { get; set; }
 
+        public List<Movie> FavoriteFilms { get; set; }
+
+        public Movie LastWatched { get; set; }
+
         public List<Censor> Censors { get; set; }
 
     }

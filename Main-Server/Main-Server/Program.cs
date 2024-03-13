@@ -1,4 +1,15 @@
+using Main_Server.Datalayer.Context;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//Add database connection
+builder.Services.Configure<Client_DatabaseSettings>(
+    builder.Configuration.GetSection("Client_Database"));
+
+//Add results
+
+
+
 
 // Add services to the container.
 

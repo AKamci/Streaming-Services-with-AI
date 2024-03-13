@@ -6,6 +6,8 @@
 
         public string MovieName { get; set; }
 
+        public string MoviePoster { get; set; }
+
         public string MovieDescription { get; set; }
 
         public DateTime ReleaseYear { get; set; }
@@ -16,7 +18,8 @@
 
         public string Category { get; set; }
 
+        public decimal Views { get; set; }
 
-
+       
     }
 }
