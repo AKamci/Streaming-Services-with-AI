@@ -1,6 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:tv_series/core/extensions/l10n_extensions.dart';
 import 'package:tv_series/src/components/header_bar.dart';
 import 'package:tv_series/src/components/navbar.dart';
 import 'package:tv_series/src/models/subUser.dart';
@@ -56,7 +55,7 @@ class _WhoIsWatchingState extends State<WhoIsWatching> {
           Container(
             margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
             color: Colors.red,
-            child: Text('Who Is Watching?'),
+            child: Text(context.translate.who_is_watching),
           ),
           Expanded(
             child: subUserWidgetListGet(subUser),

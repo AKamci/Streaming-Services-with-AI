@@ -7,12 +7,15 @@ environment:
   sdk: '>=3.1.5 <4.0.0'
 
 dependencies:
-  chewie: ^1.7.5
   flutter:
+    sdk: flutter
+  flutter_localizations:
     sdk: flutter
   flutter_login_template: ^1.1.0
   http: ^1.1.0
+  intl: any
   video_player: ^2.8.3
+
 
 dev_dependencies:
   flutter_test:
@@ -24,5 +27,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true  
   assets:
     - assets/videos/
