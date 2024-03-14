@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tv_series/src/constants/routes.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -19,6 +20,7 @@ class _LoginFormState extends State<LoginForm> {
       // Login action
       print('Username: $_username, Password: $_password');
     }
+    Navigator.popAndPushNamed(context, whoIsWatchingRoute);
   }
 
   @override

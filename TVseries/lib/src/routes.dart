@@ -1,5 +1,6 @@
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/screens/login/login.dart';
+import 'package:tv_series/src/screens/login/widgets/whoWatching.dart';
 
 import 'screens/home/home_screen.dart';
 import 'screens/shows/shows_screen.dart';
@@ -15,6 +16,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (context) => const ShowsScreen());
       case loginScreenRoute:
         return MaterialPageRoute(builder: (context) => const LoginScreen());
+      case whoIsWatchingRoute:
+        return MaterialPageRoute(builder: (context) => const WhoIsWatching());
       default:
         return MaterialPageRoute(builder: (context) => const LoginScreen());
     }

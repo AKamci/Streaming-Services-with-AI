@@ -21,13 +21,6 @@ class SubUser {
 
   //List<Censor> Censors ;
 
-  SubUser({
-    required this.subId,
-    required this.name,
-    required this.surname,
-    required this.image,
-    required this.title,
-    required this.description,
-    required this.pin,
-  }) {}
+  SubUser(this.subId, this.name, this.surname, this.image, this.title,
+      this.description, this.pin);
 }
