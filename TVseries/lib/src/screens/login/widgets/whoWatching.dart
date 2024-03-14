@@ -37,8 +37,11 @@ class _WhoIsWatchingState extends State<WhoIsWatching> {
   Widget subUserWidgetCreate(SubUser user) {
     return Container(
       color: Colors.red,
-      child: Text(
-        user.name,
+      child: Container(
+        alignment: Alignment.topCenter,
+        child: Text(
+          user.name,
+        ),
       ),
     );
   }
