@@ -2,6 +2,8 @@
 {
     public class SubUser
     {
+        public string MainId { get; set; } 
+
         public string SubId { get; set; }
 
         public string Name { get; set; }
@@ -21,6 +23,8 @@
         public List<Movie> FavoriteFilms { get; set; }
 
         public Movie LastWatched { get; set; }
+
+        public List<Movie> FinishedMovies { get; set; }
 
         public List<Censor> Censors { get; set; }
 

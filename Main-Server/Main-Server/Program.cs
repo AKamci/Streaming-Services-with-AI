@@ -1,10 +1,35 @@
 using Main_Server.Datalayer.Context;
+using Main_Server.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //Add database connection
 builder.Services.Configure<Client_DatabaseSettings>(
     builder.Configuration.GetSection("Client_Database"));
+
+//Add JWT token settings
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"] ?? string.Empty))
+
+        };
+    }
+                );
+
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+
 
 //Add results
 
