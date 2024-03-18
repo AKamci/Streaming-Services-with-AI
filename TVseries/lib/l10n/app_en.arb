@@ -11,5 +11,7 @@
   "phone_language": "Phone Language",
   "privacy": "Privacy",
   "turkish": "Turkish",
-  "who_is_watching": "Who is watching"
+  "who_is_watching": "Who is watching",
+  "login": "LOGIN",
+  "register": "REGISTER"
 }

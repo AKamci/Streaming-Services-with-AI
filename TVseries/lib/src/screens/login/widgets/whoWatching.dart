@@ -47,21 +47,17 @@ class _WhoIsWatchingState extends State<WhoIsWatching> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomHeaderBar(),
-      drawer: const NavBar(),
-      body: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-            color: Colors.red,
-            child: Text(context.translate.who_is_watching),
-          ),
-          Expanded(
-            child: subUserWidgetListGet(subUser),
-          )
-        ],
-      ),
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+          color: Colors.red,
+          child: Text(context.translate.who_is_watching),
+        ),
+        Expanded(
+          child: subUserWidgetListGet(subUser),
+        )
+      ],
     );
   }
 }
