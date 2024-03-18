@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tv_series/core/extensions/l10n_extensions.dart';
-import 'package:tv_series/src/components/header_bar.dart';
-import 'package:tv_series/src/components/navbar.dart';
 import 'package:tv_series/src/models/subUser.dart';
 
 class WhoIsWatching extends StatefulWidget {

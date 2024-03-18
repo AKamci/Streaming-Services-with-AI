@@ -1,8 +1,9 @@
 import 'package:tv_series/src/components/header_bar.dart';
 import 'package:tv_series/src/components/navbar.dart';
 import 'package:tv_series/src/constants/routes.dart';
-import 'package:tv_series/src/screens/login/login.dart';
+
 import 'package:tv_series/src/screens/login/widgets/whoWatching.dart';
+import 'package:tv_series/src/screens/login_v2/login.dart';
 
 import 'screens/home/home_screen.dart';
 import 'screens/shows/shows_screen.dart';
@@ -38,7 +39,7 @@ class RouteGenerator {
     return const Scaffold(
       appBar: CustomHeaderBar(),
       drawer: NavBar(),
-      body: LoginScreen(),
+      body: LoginPage(),
     );
   }
 
