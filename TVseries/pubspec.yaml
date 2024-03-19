@@ -12,6 +12,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_login_template: ^1.1.0
+  go_router: ^13.2.1
   http: ^1.1.0
   intl: any
   

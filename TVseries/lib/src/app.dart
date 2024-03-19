@@ -1,18 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:tv_series/src/components/header_bar.dart';
-import 'package:tv_series/src/components/navbar.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import './routes.dart';
+import 'router/router.dart';
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: const Scaffold(
-        appBar: CustomHeaderBar(),
-        drawer: NavBar(),
-      ),
+    return MaterialApp.router(
+      routerConfig: router,
       title: 'TVseries',
       theme: ThemeData.dark(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
@@ -44,8 +39,6 @@ class MyApp extends StatelessWidget {
       },
 
       debugShowCheckedModeBanner: false, // for debug just design material
-      initialRoute: '/login',
-      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

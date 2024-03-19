@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:tv_series/core/extensions/l10n_extensions.dart';
 import 'package:tv_series/src/models/subUser.dart';
 
-class WhoIsWatching extends StatefulWidget {
-  const WhoIsWatching({super.key});
+class WhoIsWatchingPage extends StatefulWidget {
+  const WhoIsWatchingPage({super.key});
 
   @override
-  State<WhoIsWatching> createState() => _WhoIsWatchingState();
+  State<WhoIsWatchingPage> createState() => _WhoIsWatchingState();
 }
 
-class _WhoIsWatchingState extends State<WhoIsWatching> {
+class _WhoIsWatchingState extends State<WhoIsWatchingPage> {
   List<SubUser> subUser = [
     SubUser('subId', 'name1', 'surname', 'image', 'title', 'description', 123),
     SubUser('subId', 'name2', 'surname', 'image', 'title', 'description', 123),

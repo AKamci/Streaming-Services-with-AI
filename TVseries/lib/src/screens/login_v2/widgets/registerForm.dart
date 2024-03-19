@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tv_series/core/extensions/l10n_extensions.dart';
+import 'package:tv_series/src/constants/routes.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -21,6 +23,7 @@ class _RegisterFormState extends State<RegisterForm> {
       // Login action
       print('Username: $_username, Password: $_password');
     }
+    context.go(whoIsWatchingPageRoute);
     //Navigator.popAndPushNamed(context, whoIsWatchingRoute);
   }
 
