@@ -5,14 +5,16 @@ import 'package:tv_series/src/components/navbar.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/screens/login_v2/login.dart';
 import 'package:tv_series/src/screens/login_v2/widgets/whoWatching.dart';
+import 'package:tv_series/src/screens/show_details/show_details_screen.dart';
 import 'package:tv_series/src/screens/shows/shows_screen.dart';
 
 final GoRouter router = GoRouter(
+  initialLocation: '/',
   routes: <RouteBase>[
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return _loginPage();
+        return _showDetailsPage();
       },
       //routes: <RouteBase>[],
     ),
@@ -63,6 +65,15 @@ Widget _showsPage() {
     body: ShowsPage(),
   );
 }
+
+Widget _showDetailsPage() {
+  return Scaffold(
+    appBar: const CustomHeaderBar(),
+    drawer: const NavBar(),
+    body: ShowInfoPage(),
+  );
+}
+
 
 /*
 switch (settings.name) {
