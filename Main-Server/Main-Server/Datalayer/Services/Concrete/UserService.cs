@@ -3,13 +3,14 @@ using Main_Server.Datalayer.Services.Abstract;
 using Main_Server.Infrastructure;
 using Main_Server.Models;
 using Microsoft.Extensions.Options;
+using MongoDB.Bson;
 using MongoDB.Driver;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace Main_Server.Datalayer.Services.Concrete
 {
-    public class UserService : IUserService
+    public class UserService
     {
         private readonly IMongoCollection<User> _usersCollection;
         private readonly JwtSettings _jwtsettings;
@@ -35,8 +36,13 @@ namespace Main_Server.Datalayer.Services.Concrete
             
             string _id = _information._id;
             string _mail = _information._mail;
-            
-            user.Id = _id;
+
+            //Eklenti
+            ObjectId objectId;
+
+            ObjectId.TryParse(_id, out objectId);
+
+            user.Id = _id; // Normalde _id
             user.Email = _mail;
 
             await _usersCollection.InsertOneAsync(user);
@@ -48,15 +54,17 @@ namespace Main_Server.Datalayer.Services.Concrete
             var handler = new JwtSecurityTokenHandler();
             var jwtSecurityToken = handler.ReadJwtToken(token);
             var payload = jwtSecurityToken.Payload;
-            string _id = (string)payload["nameidentifier"];
-            string _mail = (string)payload["name"];
+            string _id = (string)payload["UserID"];
+            string _mail = (string)payload["UserEMail"];
+
+            Console.WriteLine(_id, _mail);
             
             return (_id, _mail);
         }
 
         public async Task<Result<bool>> Delete(string id)
         {
-           await _usersCollection.DeleteOneAsync(x => x.Id == id);
+           await _usersCollection.DeleteOneAsync(x => x.Id.ToString() == id);
            return Result<bool>.Success(true, "User Deleted");
         }
 
@@ -69,7 +77,7 @@ namespace Main_Server.Datalayer.Services.Concrete
 
         public async Task<Result<User>> GetById(string id)
         {
-            var user = await _usersCollection.Find(x => x.Id == id).FirstOrDefaultAsync();
+            var user = await _usersCollection.Find(x => x.Id.ToString() == id).FirstOrDefaultAsync();
 
             if (user is null)
             {

@@ -11,7 +11,8 @@ namespace Main_Server.Models
 
         public string Email { get; set; }
 
-        public List<SubUser> SubUser { get; set; }    
-        
+        public List<SubUser> SubUser { get; set; } = new List<SubUser>();
+
+
     }
 }

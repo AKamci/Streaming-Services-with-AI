@@ -18,7 +18,7 @@
 
         public string Category { get; set; }
 
-        public decimal Views { get; set; }
+        public int Views { get; set; }
 
        
     }

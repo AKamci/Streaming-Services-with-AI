@@ -85,8 +85,8 @@ namespace Security_Server
 
                 var claimDizisi = new[]
                 {
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                    new Claim(ClaimTypes.Name, "User")
+                    new Claim("UserID",$"{user.Id}"),
+                    new Claim("UserEMail",$"{user.E_Posta}")
                 };
 
                 var token = new JwtSecurityToken(_jwtAyarlari.Issuer,

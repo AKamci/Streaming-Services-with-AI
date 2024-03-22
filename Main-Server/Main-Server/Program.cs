@@ -1,4 +1,5 @@
 using Main_Server.Datalayer.Context;
+using Main_Server.Datalayer.Services.Concrete;
 using Main_Server.Infrastructure;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -29,6 +30,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 );
 
 builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+
+
+//Add Controller
+
+builder.Services.AddSingleton<UserService, UserService>();
+builder.Services.AddSingleton<SubUserService, SubUserService>();
+
 
 
 //Add results

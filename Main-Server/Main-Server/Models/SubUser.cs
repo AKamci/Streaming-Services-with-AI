@@ -1,9 +1,13 @@
-﻿namespace Main_Server.Models
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson;
+using System.Runtime.CompilerServices;
+
+namespace Main_Server.Models
 {
     public class SubUser
     {
-        public string MainId { get; set; } 
-
+        public string UserId { get; set; }
+  
         public string SubId { get; set; }
 
         public string Name { get; set; }
