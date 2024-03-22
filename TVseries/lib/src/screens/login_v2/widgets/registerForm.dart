@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tv_series/core/extensions/l10n_extensions.dart';
 import 'package:tv_series/src/constants/routes.dart';
 
-class LoginForm extends StatefulWidget {
-  const LoginForm({super.key});
+class RegisterForm extends StatefulWidget {
+  const RegisterForm({super.key});
 
   @override
-  State<LoginForm> createState() => _LoginFormState();
+  State<RegisterForm> createState() => _RegisterFormState();
 }
 
-class _LoginFormState extends State<LoginForm> {
+class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
+
   String _username = '';
   String _password = '';
 
@@ -20,7 +23,8 @@ class _LoginFormState extends State<LoginForm> {
       // Login action
       print('Username: $_username, Password: $_password');
     }
-    Navigator.popAndPushNamed(context, whoIsWatchingRoute);
+    context.go(whoIsWatchingPageRoute);
+    //Navigator.popAndPushNamed(context, whoIsWatchingRoute);
   }
 
   @override
@@ -65,7 +69,7 @@ class _LoginFormState extends State<LoginForm> {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: ElevatedButton(
                 onPressed: _submit,
-                child: const Text('Login'),
+                child: Text(context.translate.register),
               ),
             ),
           ],

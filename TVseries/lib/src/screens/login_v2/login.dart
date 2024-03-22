@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:tv_series/src/screens/login/widgets/loginForm.dart';
+import 'package:tv_series/src/screens/login_v2/loginFormScreen.dart';
 import 'package:video_player/video_player.dart';
 
 class LoginPage extends StatefulWidget {
@@ -73,7 +72,8 @@ class _LoginPageState extends State<LoginPage> {
           top: _loginTopPosition + MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
-          child: LoginForm(),
+          // Login page widget
+          child: LoginRegisterPage(),
         ),
         /*
         Container(

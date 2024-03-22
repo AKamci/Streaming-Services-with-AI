@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -32,7 +33,7 @@ class Grid extends StatelessWidget {
         Scaffold(
           body: InkWell(
             onTap: () {
-              Navigator.pushNamed(context, loginScreenRoute);
+              context.go(loginPageRoute);
             },
             child: Center(
                 child: FutureBuilder<Anime>(

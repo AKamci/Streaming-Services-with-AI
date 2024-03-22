@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:tv_series/core/extensions/l10n_extensions.dart';
-import 'package:tv_series/src/components/header_bar.dart';
-import 'package:tv_series/src/components/navbar.dart';
 import 'package:tv_series/src/models/subUser.dart';
 
-class WhoIsWatching extends StatefulWidget {
-  const WhoIsWatching({super.key});
+class WhoIsWatchingPage extends StatefulWidget {
+  const WhoIsWatchingPage({super.key});
 
   @override
-  State<WhoIsWatching> createState() => _WhoIsWatchingState();
+  State<WhoIsWatchingPage> createState() => _WhoIsWatchingState();
 }
 
-class _WhoIsWatchingState extends State<WhoIsWatching> {
+class _WhoIsWatchingState extends State<WhoIsWatchingPage> {
   List<SubUser> subUser = [
     SubUser('subId', 'name1', 'surname', 'image', 'title', 'description', 123),
     SubUser('subId', 'name2', 'surname', 'image', 'title', 'description', 123),
@@ -47,21 +45,17 @@ class _WhoIsWatchingState extends State<WhoIsWatching> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const CustomHeaderBar(),
-      drawer: const NavBar(),
-      body: Column(
-        children: [
-          Container(
-            margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-            color: Colors.red,
-            child: Text(context.translate.who_is_watching),
-          ),
-          Expanded(
-            child: subUserWidgetListGet(subUser),
-          )
-        ],
-      ),
+    return Column(
+      children: [
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+          color: Colors.red,
+          child: Text(context.translate.who_is_watching),
+        ),
+        Expanded(
+          child: subUserWidgetListGet(subUser),
+        )
+      ],
     );
   }
 }
