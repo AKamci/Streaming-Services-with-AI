@@ -66,19 +66,9 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "newEmail",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "oldEmail",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "secretKey",
-        "Type": "System.String",
-        "IsRequired": false
+        "Name": "updateMail",
+        "Type": "Security_Server.UpdateMail",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []

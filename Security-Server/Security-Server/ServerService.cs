@@ -29,12 +29,12 @@ namespace Security_Server
         }
 
 
-        public async Task<UpdateResult>? Update_Email(string newEmail, string oldEmail, string _secretKey)
+        public async Task<UpdateResult>? Update_Email(UpdateMail updateMail)
         {
-            if (secretKey == _secretKey)
+            if (secretKey == updateMail.secretKey)
             {
-                var filter = Builders<Kullanıcı>.Filter.Eq("E_Posta", oldEmail);
-                var update = Builders<Kullanıcı>.Update.Set(x => x.E_Posta, newEmail);
+                var filter = Builders<Kullanıcı>.Filter.Eq("E_Posta", updateMail.oldEmail);
+                var update = Builders<Kullanıcı>.Update.Set(x => x.E_Posta, updateMail.newEmail);
                 var result = await _kullaniciCollection.UpdateOneAsync(filter, update);
                 return result;
             }

@@ -6,8 +6,11 @@ using Main_Server.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Newtonsoft.Json;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Security.Claims;
 using System.Text;
 
@@ -90,16 +93,13 @@ namespace Main_Server.Datalayer.Services.Concrete
             return Result<User>.Success(user, "User found.");
         }
 
-
-
-        //Diğer server ile anlaşmalı update edilmesi lazım.
         public async Task<Result<User>> Update(string id, string email)
         {
             var _user = GetById(id);
 
             var user = _user.Result.Value;
             string secretKey = "guyayscdsanjhsadvbkjlshdcbavsgdchbnsbcdgavh";
-            var oldEmail = user.Email;
+            string oldEmail = user.Email;
             var filter = Builders<User>.Filter.Eq(u => u.Email, user.Email);
            
             user.Email = email;
@@ -109,30 +109,43 @@ namespace Main_Server.Datalayer.Services.Concrete
             // Kullanıcıyı güncelleyin
             await _usersCollection.UpdateOneAsync(filter, update);
 
-            // asdfghjkl
-            using (HttpClient client = new HttpClient())
+            // POST isteği için URL'yi oluşturun
+            string url = "https://localhost:44385/api/Server";
+
+            // Gönderilecek verileri oluşturun
+            var data = new
             {
-                try
-                {
-                    // POST isteği için JSON verisi oluştur
-                    string jsonData = $"{{\"newEmail\":\"{email}\",\"oldEmail\":\"{oldEmail}\",\"secretKey\":\"{secretKey}\"}}";
-                    var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+                newEmail = email,
+                oldEmail = oldEmail,
+                secretKey = "guyayscdsanjhsadvbkjlshdcbavsgdchbnsbcdgavh"
+            };
 
-                    // POST isteği gönder
-                    HttpResponseMessage response = await client.PostAsync("https://localhost:44385/api/server", content);
+            // JSON formatında veri göndermek için Content-Type header'ı ekleyin
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
-                    response.EnsureSuccessStatusCode();
+            // POST isteği oluşturun ve verileri ekleyin
+            var request = new HttpRequestMessage(HttpMethod.Post, url);
+            request.Content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
 
-                    // Yanıtı oku
-                    string responseBody = await response.Content.ReadAsStringAsync();
+            // POST isteğini gönderin ve cevabı alın
+            var response = await client.SendAsync(request);
 
-                    Console.WriteLine(responseBody);
-                }
-                catch (HttpRequestException e)
-                {
-                    Console.WriteLine($"HTTP Hatası: {e.Message}");
-                }
+            // Cevabın durum kodunu kontrol edin
+            if (response.IsSuccessStatusCode)
+            {
+                // Başarılıysa, cevabı yazdırın
+                Console.WriteLine("Başarılı!");
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
             }
+            else
+            {
+                // Başarısızsa, hata mesajını yazdırın
+                Console.WriteLine("Hata!");
+                Console.WriteLine(await response.Content.ReadAsStringAsync());
+            }
+
+
 
             return Result<User>.Success(user, "User Updated");
 

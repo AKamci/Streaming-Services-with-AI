@@ -18,10 +18,9 @@ namespace Security_Server.Controllers
         }
 
         [HttpPost]
-
-        public async Task<IActionResult> Update_Email(string newEmail, string oldEmail, string secretKey)
+        public async Task<IActionResult> Update_Email(UpdateMail updateMail)
         {
-            var returned = await _serverService.Update_Email(newEmail, oldEmail, secretKey);
+            var returned = await _serverService.Update_Email(updateMail);
 
             return Ok(returned);
         }
