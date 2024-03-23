@@ -23,37 +23,37 @@ namespace Main_Server.Controllers
 
 
         [HttpPost]
-        public IActionResult Add_SubUser(string id, SubUser subUser)
+        public async Task<IActionResult> Add_SubUser(string id, SubUser subUser)
         {
-            var result = _subUserService.Add_SubUser(id, subUser);
-            
-            var users = result.Result.Value.SubUser;
+            var result = await _subUserService.Add_SubUser(id, subUser);
+
+            var users = result;
 
             return Ok(users);
         }
 
         [HttpGet]
-        public IActionResult GetById_SubUser(string id, string subId)
+        public async Task<IActionResult> GetById_SubUser(string id, string subId)
         {
-            var result = _subUserService.GetById_SubUser(id,  subId);
-            var users = result.Result.Value;
+            var result = await _subUserService.GetById_SubUser(id,  subId);
+            var users = result;
             return Ok(users);
         }
 
         [HttpDelete]
-        public IActionResult Delete(string id, string subId)
+        public async Task<IActionResult> Delete(string id, string subId)
         {
 
-            var result = _subUserService.Delete_SubUser(id, subId);
-            var users = result.Result.Value;
+            var result = await _subUserService.Delete_SubUser(id, subId);
+            var users = result;
             return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public IActionResult List_Subusers(string id)
+        public async Task<IActionResult> List_Subusers(string id)
         {
-            var result = _subUserService.Listed_All_SubUser(id);
-            var users = result.Result.Value;
+            var result = await _subUserService.Listed_All_SubUser(id);
+            var users = result;
             return Ok(users);
         }
 

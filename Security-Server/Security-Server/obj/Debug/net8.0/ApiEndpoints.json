@@ -56,5 +56,31 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "Security_Server.Controllers.ServerController",
+    "Method": "Update_Email",
+    "RelativePath": "api/Server",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "newEmail",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "oldEmail",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "secretKey",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
   }
 ]

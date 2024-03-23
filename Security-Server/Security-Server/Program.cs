@@ -10,6 +10,11 @@ builder.Services.Configure<Client_InformationDatabaseSettings>(
 
 builder.Services.AddSingleton<AES_Keys>();
 builder.Services.AddSingleton<LoginService>();
+builder.Services.AddSingleton<ServerService>();
+
+
+
+
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(options =>

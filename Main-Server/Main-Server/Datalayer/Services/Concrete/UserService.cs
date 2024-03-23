@@ -1,12 +1,15 @@
-﻿using Main_Server.Datalayer.Context;
+﻿using Amazon.Runtime.Internal.Endpoints.StandardLibrary;
+using Main_Server.Datalayer.Context;
 using Main_Server.Datalayer.Services.Abstract;
 using Main_Server.Infrastructure;
 using Main_Server.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using System;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Text;
 
 namespace Main_Server.Datalayer.Services.Concrete
 {
@@ -90,9 +93,49 @@ namespace Main_Server.Datalayer.Services.Concrete
 
 
         //Diğer server ile anlaşmalı update edilmesi lazım.
-        public Result<User> Update(User entity)
+        public async Task<Result<User>> Update(string id, string email)
         {
-            throw new NotImplementedException();
+            var _user = GetById(id);
+
+            var user = _user.Result.Value;
+            string secretKey = "guyayscdsanjhsadvbkjlshdcbavsgdchbnsbcdgavh";
+            var oldEmail = user.Email;
+            var filter = Builders<User>.Filter.Eq(u => u.Email, user.Email);
+           
+            user.Email = email;
+
+            var update = Builders<User>.Update.Set(u => u.Email, user.Email);
+
+            // Kullanıcıyı güncelleyin
+            await _usersCollection.UpdateOneAsync(filter, update);
+
+            // asdfghjkl
+            using (HttpClient client = new HttpClient())
+            {
+                try
+                {
+                    // POST isteği için JSON verisi oluştur
+                    string jsonData = $"{{\"newEmail\":\"{email}\",\"oldEmail\":\"{oldEmail}\",\"secretKey\":\"{secretKey}\"}}";
+                    var content = new StringContent(jsonData, Encoding.UTF8, "application/json");
+
+                    // POST isteği gönder
+                    HttpResponseMessage response = await client.PostAsync("https://localhost:44385/api/server", content);
+
+                    response.EnsureSuccessStatusCode();
+
+                    // Yanıtı oku
+                    string responseBody = await response.Content.ReadAsStringAsync();
+
+                    Console.WriteLine(responseBody);
+                }
+                catch (HttpRequestException e)
+                {
+                    Console.WriteLine($"HTTP Hatası: {e.Message}");
+                }
+            }
+
+            return Result<User>.Success(user, "User Updated");
+
         }
 
        

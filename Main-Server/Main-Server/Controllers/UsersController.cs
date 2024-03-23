@@ -1,4 +1,5 @@
-﻿using Main_Server.Datalayer.Services.Concrete;
+﻿using Main_Server.Datalayer.Services.Abstract;
+using Main_Server.Datalayer.Services.Concrete;
 using Main_Server.Infrastructure;
 using Main_Server.Models;
 using Microsoft.AspNetCore.Cors.Infrastructure;
@@ -22,37 +23,49 @@ namespace Main_Server.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateAccount(string token)
+        public async Task<IActionResult> CreateAccount(string token)
         {
-            var result = _userService.Create(token);
+            var result = await _userService.Create(token);
 
-            return Ok(result.Result);
+            return Ok(result);
         }
 
         [HttpGet]
-        public IActionResult GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            var result = _userService.GetAll();
-            var users = result.Result.Value;
+            var result = await _userService.GetAll();
+            var users = result;
             return Ok(users);
         }
 
         [HttpDelete]
-        public IActionResult Delete(string id)
+        public async Task<IActionResult> Delete(string id)
         {
             // Diğer serverda da silinmesi gerekiyor:...
-            var result = _userService.Delete(id);
-            var users = result.Result.Value;
+            var result = await _userService.Delete(id);
+            var users = result;
             return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public IActionResult GetById(string id)
+        public async Task<IActionResult> GetById(string id)
         {
-            var result = _userService.GetById(id);
-            var users = result.Result.Value;
+            var result = await _userService.GetById(id);
+            var users = result;
             return Ok(users);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(string id, string email)
+        {
+            var result = await _userService.Update(id, email);
+
+
+
+            var users = result;
+            return Ok(users);
+        }
+
     }
 
 }

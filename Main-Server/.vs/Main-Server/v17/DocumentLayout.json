@@ -3,32 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\main-server\\main-server\\controllers\\subuserscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|solutionrelative:main-server\\controllers\\subuserscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\main-server\\main-server\\datalayer\\services\\concrete\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|solutionrelative:main-server\\datalayer\\services\\concrete\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\main-server\\main-server\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|solutionrelative:main-server\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\main-server\\main-server\\datalayer\\services\\concrete\\subuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|solutionrelative:main-server\\datalayer\\services\\concrete\\subuserservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\main-server\\main-server\\models\\censor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|solutionrelative:main-server\\models\\censor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\main-server\\main-server\\models\\movie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|solutionrelative:main-server\\models\\movie.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\main-server\\main-server\\models\\subuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|solutionrelative:main-server\\models\\subuser.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\main-server\\main-server\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|solutionrelative:main-server\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\main-server\\main-server\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|solutionrelative:main-server\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|c:\\users\\abdul\\onedrive\\desktop\\github dosyalar\u0131\\bitirme projesi\\streaming-services-with-ai\\main-server\\main-server\\controllers\\subuserscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5A783A29-5190-4D6C-AD9E-156A4B62F46C}|Main-Server\\Main-Server.csproj|solutionrelative:main-server\\controllers\\subuserscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -38,7 +26,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -47,92 +35,53 @@
             {
               "$type": "Document",
               "DocumentIndex": 2,
-              "Title": "Censor.cs",
-              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Models\\Censor.cs",
-              "RelativeDocumentMoniker": "Main-Server\\Models\\Censor.cs",
-              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Models\\Censor.cs",
-              "RelativeToolTip": "Main-Server\\Models\\Censor.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T09:11:39.663Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Movie.cs",
-              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Models\\Movie.cs",
-              "RelativeDocumentMoniker": "Main-Server\\Models\\Movie.cs",
-              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Models\\Movie.cs",
-              "RelativeToolTip": "Main-Server\\Models\\Movie.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABQAAAASAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T08:27:33.853Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "SubUser.cs",
-              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Models\\SubUser.cs",
-              "RelativeDocumentMoniker": "Main-Server\\Models\\SubUser.cs",
-              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Models\\SubUser.cs",
-              "RelativeToolTip": "Main-Server\\Models\\SubUser.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAIwAcAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-22T08:02:03.359Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Models\\User.cs",
-              "RelativeDocumentMoniker": "Main-Server\\Models\\User.cs",
-              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Models\\User.cs",
-              "RelativeToolTip": "Main-Server\\Models\\User.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-19T13:16:38.316Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "Main-Server\\Controllers\\UsersController.cs",
-              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "Main-Server\\Controllers\\UsersController.cs",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAADoAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-19T11:16:24.05Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "SubUsersController.cs",
-              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Controllers\\SubUsersController.cs",
-              "RelativeDocumentMoniker": "Main-Server\\Controllers\\SubUsersController.cs",
-              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Controllers\\SubUsersController.cs",
-              "RelativeToolTip": "Main-Server\\Controllers\\SubUsersController.cs",
-              "ViewState": "AQIAABcAAAAAAAAAAAAswDQAAAA1AAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-18T13:25:19.27Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
               "Title": "SubUserService.cs",
               "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Datalayer\\Services\\Concrete\\SubUserService.cs",
               "RelativeDocumentMoniker": "Main-Server\\Datalayer\\Services\\Concrete\\SubUserService.cs",
               "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Datalayer\\Services\\Concrete\\SubUserService.cs",
               "RelativeToolTip": "Main-Server\\Datalayer\\Services\\Concrete\\SubUserService.cs",
-              "ViewState": "AQIAAEIAAAAAAAAAAAAuwHsAAAAAAAAA",
+              "ViewState": "AQIAAEEAAAAAAAAAAAAQwHkAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-03-19T07:01:52.754Z",
+              "WhenOpened": "2024-03-22T09:59:01.86Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Datalayer\\Services\\Concrete\\UserService.cs",
+              "RelativeDocumentMoniker": "Main-Server\\Datalayer\\Services\\Concrete\\UserService.cs",
+              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Datalayer\\Services\\Concrete\\UserService.cs",
+              "RelativeToolTip": "Main-Server\\Datalayer\\Services\\Concrete\\UserService.cs",
+              "ViewState": "AQIAAGAAAAAAAAAAAADwv3MAAAAQAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-22T09:57:09.519Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "Main-Server\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "Main-Server\\Controllers\\UsersController.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAewEMAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-22T09:54:49.045Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SubUsersController.cs",
+              "DocumentMoniker": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Controllers\\SubUsersController.cs",
+              "RelativeDocumentMoniker": "Main-Server\\Controllers\\SubUsersController.cs",
+              "ToolTip": "C:\\Users\\abdul\\OneDrive\\Desktop\\Github Dosyalar\u0131\\Bitirme Projesi\\Streaming-Services-with-AI\\Main-Server\\Main-Server\\Controllers\\SubUsersController.cs",
+              "RelativeToolTip": "Main-Server\\Controllers\\SubUsersController.cs",
+              "ViewState": "AQIAACkAAAAAAAAAAAAQwEMAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-03-22T09:55:00.999Z",
               "EditorCaption": ""
             }
           ]
