@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tv_series/core/extensions/l10n_extensions.dart';
+import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/subUser.dart';
 
 class WhoIsWatchingPage extends StatefulWidget {
@@ -32,8 +34,8 @@ class _WhoIsWatchingState extends State<WhoIsWatchingPage> {
   }
 
   Widget subUserWidgetCreate(SubUser user) {
-    return Container(
-      color: Colors.red,
+    return ElevatedButton(
+      onPressed: _submit,
       child: Container(
         alignment: Alignment.topCenter,
         child: Text(
@@ -41,6 +43,10 @@ class _WhoIsWatchingState extends State<WhoIsWatchingPage> {
         ),
       ),
     );
+  }
+
+  void _submit() {
+    GoRouter.of(context).push(showsPageRoute);
   }
 
   @override

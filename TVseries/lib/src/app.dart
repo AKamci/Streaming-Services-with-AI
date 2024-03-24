@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 import 'router/router.dart';
 
 class MyApp extends StatelessWidget {
@@ -8,6 +9,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       routerConfig: router,
+
       title: 'TVseries',
       theme: ThemeData.dark(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,

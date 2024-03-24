@@ -9,12 +9,12 @@ import 'package:tv_series/src/screens/show_details/show_details_screen.dart';
 import 'package:tv_series/src/screens/shows/shows_screen.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: '/',
+  initialLocation: loginPageRoute,
   routes: <RouteBase>[
     GoRoute(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
-        return _showDetailsPage();
+        return _loginPage();
       },
       //routes: <RouteBase>[],
     ),
@@ -38,7 +38,15 @@ final GoRouter router = GoRouter(
         path: showsPageRoute,
         builder: (BuildContext context, GoRouterState state) {
           return _showsPage();
-        }),
+        },
+        routes: [
+          GoRoute(
+              path: '$showDetailsPageRoute:data',
+              builder: (context, state) {
+                return _showDetailsPage(
+                    data: state.pathParameters['data'].toString());
+              }),
+        ]),
   ],
 );
 
@@ -66,35 +74,10 @@ Widget _showsPage() {
   );
 }
 
-Widget _showDetailsPage() {
+Widget _showDetailsPage({required String data}) {
   return Scaffold(
     appBar: const CustomHeaderBar(),
     drawer: const NavBar(),
     body: ShowInfoPage(),
   );
 }
-
-
-/*
-switch (settings.name) {
-      case homeScreenRoute:
-        return MaterialPageRoute(builder: (context) => const HomeScreen());
-
-      case showScreenRoute:
-        return MaterialPageRoute(builder: (context) {
-          return _showsPage();
-        });
-      case loginScreenRoute:
-        return MaterialPageRoute(builder: (context) {
-          return _loginPage();
-        });
-      case whoIsWatchingRoute:
-        return MaterialPageRoute(builder: (context) {
-          return _whoIsWatchingPage();
-        });
-      default:
-        return MaterialPageRoute(builder: (context) {
-          return _loginPage();
-        });
-    }
-*/

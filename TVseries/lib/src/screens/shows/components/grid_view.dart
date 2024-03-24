@@ -33,7 +33,7 @@ class Grid extends StatelessWidget {
         Scaffold(
           body: InkWell(
             onTap: () {
-              context.go(loginPageRoute);
+              context.go('$showsPageRoute/$showDetailsPageRoute:123');
             },
             child: Center(
                 child: FutureBuilder<Anime>(
