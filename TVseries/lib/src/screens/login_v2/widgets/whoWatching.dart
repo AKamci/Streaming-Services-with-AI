@@ -16,6 +16,7 @@ class _WhoIsWatchingState extends State<WhoIsWatchingPage> {
     SubUser('subId', 'name1', 'surname', 'image', 'title', 'description', 123),
     SubUser('subId', 'name2', 'surname', 'image', 'title', 'description', 123),
     SubUser('subId', 'name3', 'surname', 'image', 'title', 'description', 123),
+    SubUser('subId', 'name3', 'surname', 'image', 'title', 'description', 123),
     SubUser('subId', 'name4', 'surname', 'image', 'title', 'description', 123)
   ];
 
