@@ -67,7 +67,7 @@ Widget _whoIsWatchingPage() {
 }
 
 Widget _showsPage() {
-  return const Scaffold(
+  return Scaffold(
     appBar: CustomHeaderBar(),
     drawer: NavBar(),
     body: ShowsPage(),
