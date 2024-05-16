@@ -4,14 +4,14 @@ import 'package:tv_series/core/extensions/l10n_extensions.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/subUser.dart';
 
-class WhoIsWatchingPage extends StatefulWidget {
-  const WhoIsWatchingPage({super.key});
+class ProfileSelectionPage extends StatefulWidget {
+  const ProfileSelectionPage({super.key});
 
   @override
-  State<WhoIsWatchingPage> createState() => _WhoIsWatchingState();
+  State<ProfileSelectionPage> createState() => _ProfileSelectionState();
 }
 
-class _WhoIsWatchingState extends State<WhoIsWatchingPage> {
+class _ProfileSelectionState extends State<ProfileSelectionPage> {
   List<SubUser> subUser = [
     SubUser('subId', 'name1', 'surname', 'image', 'title', 'description', 123),
     SubUser('subId', 'name2', 'surname', 'image', 'title', 'description', 123),
@@ -47,7 +47,7 @@ class _WhoIsWatchingState extends State<WhoIsWatchingPage> {
   }
 
   void _submit() {
-    GoRouter.of(context).push(showsPageRoute);
+    GoRouter.of(context).push(shows_route);
   }
 
   @override

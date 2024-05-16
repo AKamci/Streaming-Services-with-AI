@@ -1,30 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tv_series/core/extensions/l10n_extensions.dart';
 import 'package:tv_series/src/constants/routes.dart';
 
-class RegisterForm extends StatefulWidget {
-  const RegisterForm({super.key});
+class LoginForm extends StatefulWidget {
+  const LoginForm({super.key});
 
   @override
-  State<RegisterForm> createState() => _RegisterFormState();
+  State<LoginForm> createState() => _LoginFormState();
 }
 
-class _RegisterFormState extends State<RegisterForm> {
+class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
-
   String _username = '';
   String _password = '';
 
   void _submit() {
-    final form = _formKey.currentState;
-    if (form!.validate()) {
-      form.save();
-      // Login action
-      print('Username: $_username, Password: $_password');
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      context.go(profile_selection_route);
     }
-    context.go(whoIsWatchingPageRoute);
-    //Navigator.popAndPushNamed(context, whoIsWatchingRoute);
   }
 
   @override
@@ -32,22 +26,15 @@ class _RegisterFormState extends State<RegisterForm> {
     return Form(
       key: _formKey,
       child: Container(
-        //alignment: Alignment.topCenter,
         margin: const EdgeInsets.symmetric(vertical: 50.0),
-        //color: Colors.red,
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
+          children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 decoration: const InputDecoration(labelText: 'Username'),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter your username';
-                  }
-                  return null;
-                },
+                validator: (value) => value!.isEmpty ? 'Please enter your username' : null,
                 onSaved: (value) => _username = value!,
               ),
             ),
@@ -56,12 +43,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: TextFormField(
                 decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return 'Please enter your password';
-                  }
-                  return null;
-                },
+                validator: (value) => value!.isEmpty ? 'Please enter your password' : null,
                 onSaved: (value) => _password = value!,
               ),
             ),
@@ -69,7 +51,7 @@ class _RegisterFormState extends State<RegisterForm> {
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: ElevatedButton(
                 onPressed: _submit,
-                child: Text(context.translate.register),
+                child: Text('Login'),
               ),
             ),
           ],
