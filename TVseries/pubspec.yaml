@@ -17,6 +17,7 @@ dependencies:
   http: ^1.1.0
   intl: any
   
+  shared_preferences: ^2.2.3
   url_strategy: ^0.2.0
   video_player: ^2.8.3
 
@@ -34,3 +35,5 @@ flutter:
   generate: true  
   assets:
     - assets/videos/
+    - assets/images/
+    - assets/data/
