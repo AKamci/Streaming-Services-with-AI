@@ -1,26 +1,35 @@
+import 'package:tv_series/src/models/censor.dart';
+import 'package:tv_series/src/models/movie.dart';
+
 class SubUser {
-  String subId;
+  int CustomerId=0;
 
-  String name;
+  String Name;
 
-  String surname;
+  String Surname;
 
-  String image;
+  String Image;
 
-  String title;
+  String Title;
 
-  String description;
+  String Description;
 
-  int pin;
+  int? PIN;
 
-  //List<Movie> Movies ;
+  int LastWatchedId=0;
 
-  //List<Movie> FavoriteFilms ;
+  Movie? LastWatched;
 
-  //Movie LastWatched ;
+  List<Movie>? Movies;
+  
+  List<Movie>? FavoriteMovies ;
 
-  //List<Censor> Censors ;
+  List<FinishedMovie>? FinishedMovies ;
 
-  SubUser(this.subId, this.name, this.surname, this.image, this.title,
-      this.description, this.pin);
+  List<Censor>? Censors;
+
+  SubUser(this.CustomerId, this.Name, this.Surname, this.Image, this.Title, this.Description, this.PIN);
+}
+
+class FinishedMovie {
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tv_series/src/models/media.dart';
+import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/screens/shows/widgets/media_grid.dart';
-import 'package:tv_series/src/services/local_data_service.dart';
+import 'package:tv_series/src/services/api_service.dart';
 
 class ShowsPage extends StatefulWidget {
   // title = TVshows,Films
@@ -15,13 +15,13 @@ class ShowsPage extends StatefulWidget {
 class _ShowsPageState extends State<ShowsPage> {
 
   
-  late Future<List<Media>> mediaList;
-  final LocalDataService localDataService = LocalDataService();
+  late Future<List<Movie>> mediaList;
+  final ApiDataService apiDataService = ApiDataService();
 
   @override
   void initState() {
     super.initState();
-    mediaList = localDataService.fetchMedia();
+    mediaList = apiDataService.getMovies();
   }
 
   @override
@@ -35,7 +35,7 @@ class _ShowsPageState extends State<ShowsPage> {
             style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
           ),
         ),
-        FutureBuilder<List<Media>>(
+        FutureBuilder<List<Movie>>(
           future: mediaList,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {

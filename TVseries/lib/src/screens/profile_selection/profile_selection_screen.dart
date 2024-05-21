@@ -3,22 +3,35 @@ import 'package:go_router/go_router.dart';
 import 'package:tv_series/core/extensions/l10n_extensions.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/subUser.dart';
+import 'package:tv_series/src/models/user.dart';
+import 'package:tv_series/src/services/api_service.dart';
 
 class ProfileSelectionPage extends StatefulWidget {
   const ProfileSelectionPage({super.key});
-
+  
   @override
   State<ProfileSelectionPage> createState() => _ProfileSelectionState();
 }
 
 class _ProfileSelectionState extends State<ProfileSelectionPage> {
-  List<SubUser> subUser = [
-    SubUser('subId', 'name1', 'surname', 'image', 'title', 'description', 123),
-    SubUser('subId', 'name2', 'surname', 'image', 'title', 'description', 123),
-    SubUser('subId', 'name3', 'surname', 'image', 'title', 'description', 123),
-    SubUser('subId', 'name3', 'surname', 'image', 'title', 'description', 123),
-    SubUser('subId', 'name4', 'surname', 'image', 'title', 'description', 123)
-  ];
+  late Future<User> futureUser;
+  List<SubUser> subUserList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    fetchCustomerData();
+  }
+
+  
+
+  void fetchCustomerData() async {
+    ApiDataService apiService = ApiDataService();
+    User user = await apiService.getCustomer(1);
+    setState(() {
+      subUserList = user.Users ?? [];
+    });
+  }
 
   Widget subUserWidgetListGet(List<SubUser> userList) {
     List<Widget> userWidget = [];
@@ -40,7 +53,7 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
       child: Container(
         alignment: Alignment.topCenter,
         child: Text(
-          user.name,
+          user.Title,
         ),
       ),
     );
@@ -52,17 +65,24 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-          color: Colors.red,
-          child: Text(context.translate.who_is_watching),
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(context.translate.who_is_watching),
+      ),
+      body: Center(
+        child: Column(
+          children: [
+            Container(
+              margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
+              color: Colors.red,
+              child: Text(context.translate.who_is_watching),
+            ),
+            Expanded(
+              child: subUserWidgetListGet(subUserList),
+            ),
+          ],
         ),
-        Expanded(
-          child: subUserWidgetListGet(subUser),
-        )
-      ],
+      ),
     );
   }
 }

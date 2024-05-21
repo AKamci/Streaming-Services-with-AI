@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/components/header_bar.dart';
 import 'package:tv_series/src/components/navbar.dart';
 import 'package:tv_series/src/constants/routes.dart';
-import 'package:tv_series/src/models/media.dart';
+import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/screens/login/login_screen.dart';
 import 'package:tv_series/src/screens/profile_selection/profile_selection_screen.dart';
 import 'package:tv_series/src/screens/show_details/show_details_screen.dart';
@@ -45,7 +45,7 @@ final GoRouter router = GoRouter(
           //extra: movie
           path: '$details_route',
           builder: (context, state) {
-            return _showDetailsPage(data: state.extra as Media);
+            return _showDetailsPage(data: state.extra as Movie);
           },
         ),
       ],
@@ -79,7 +79,7 @@ Widget _showsPage() {
   );
 }
 
-Widget _showDetailsPage({required Media data}) {
+Widget _showDetailsPage({required Movie data}) {
   return Scaffold(
     appBar: const CustomHeaderBar(),
     drawer: const NavBar(),

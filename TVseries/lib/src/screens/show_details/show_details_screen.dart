@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tv_series/src/models/censor.dart';
-import 'package:tv_series/src/models/media.dart';
+import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/screens/show_details/widgets/overview.dart';
 import 'package:tv_series/src/screens/show_details/widgets/censors.dart';
 import 'package:tv_series/src/services/api_service.dart';
 
 class ShowDetailPage extends StatefulWidget {
-  final Media media;
+  final Movie media;
 
   ShowDetailPage({required this.media});
 
@@ -19,16 +19,16 @@ class _ShowDetailPageState extends State<ShowDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    String title = widget.media.title;
-    String posterUrl = widget.media.posterPath;
-    String releaseDate = widget.media.releaseDate;
-    String description = widget.media.overview;
+    String title = widget.media.MovieName;
+    String posterUrl = widget.media.MoviePoster;
+    DateTime? releaseDate = widget.media.ReleaseYear;
+    String description = widget.media.MovieDescription;
     late Future<List<Censor>>? censorship = ApiDataService().getCensors();
 
     Widget getSelectedWidget() {
       if (selectedButton == 'OVERVIEW') {
         return OverView(
-          movie: null,
+          movie: widget.media,
         );
       } else if (selectedButton == 'CENSORS') {
         if (censorship != null) {

@@ -1,26 +1,15 @@
-    //class User {
-    //  String subId;
-    //
-    //  String name;
-    //
-    //  String surname;
-    //
-    //  String image;
-    //
-    //  String title;
-    //
-    //  String description;
-    //
-    //  int pin;
-    //
-    //  //List<Movie> Movies ;
-    //
-    //  //List<Movie> FavoriteFilms ;
-    //
-    //  //Movie LastWatched ;
-    //
-    //  //List<Censor> Censors ;
-    //
-    //  SubUser(this.subId, this.name, this.surname, this.image, this.title,
-    //      this.description, this.pin);
-    //}
+import 'package:tv_series/src/models/subUser.dart';
+
+class User {
+  String Email;
+
+  List<SubUser>? Users;
+
+  User({required this.Email, this.Users});
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
+      Email: json['email'],
+      Users: json['Users'],
+    );
+  }
+}

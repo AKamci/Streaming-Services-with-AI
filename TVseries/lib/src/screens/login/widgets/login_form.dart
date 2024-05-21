@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/constants/routes.dart';
+import 'package:tv_series/src/services/api_service.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -13,11 +14,14 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';
-
-  void _submit() {
+  final ApiDataService apiService = ApiDataService();
+  Future<void> _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       context.go(profile_selection_route);
+      await apiService.loginUser(_username,_password);
+
+      
     }
   }
 

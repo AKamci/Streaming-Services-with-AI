@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '/src/models/media.dart';
+import 'package:tv_series/src/models/movie.dart';
+
 import './media_card.dart';
 
 class MediaGrid extends StatelessWidget {
-  final List<Media> media;
+  final List<Movie> media;
 
   MediaGrid({required this.media});
 

@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:tv_series/src/constants/routes.dart';
+import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/router/router.dart';
 
-import '/src/models/media.dart';
+
 
 class MediaCard extends StatelessWidget {
-  final Media media;
+  final Movie media;
 
   MediaCard({required this.media});
 
@@ -24,14 +25,14 @@ class MediaCard extends StatelessWidget {
               splashColor: Colors.white10, // Splash color over image
               child: Ink.image(
                 fit: BoxFit.cover, // Fixes border issues
-                image: AssetImage(media.posterPath),
+                image: AssetImage(media.MoviePoster),
               ),
             ),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(
-              media.title,
+              media.MovieName,
               style: TextStyle(fontWeight: FontWeight.bold),
             ),
           ),//context.go('/movie_detail', extra: movie);
