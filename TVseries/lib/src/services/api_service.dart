@@ -6,7 +6,6 @@ import 'package:tv_series/src/models/censor.dart';
 import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/models/subUser.dart';
 
-
 import 'dart:io';
 
 import 'package:tv_series/src/models/user.dart';
@@ -24,9 +23,8 @@ class ApiDataService {
   String serverName = "https://10.0.2.2:7242/api";
   String securityServerName = "https://10.0.2.2:7089/api";
 
-
-    // General Operations
-    Future<T?> _fetchProtectedData<T>(
+  // General Operations
+  Future<T?> _fetchProtectedData<T>(
       String apiPath, T Function(Map<String, dynamic>) fromJson) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
@@ -41,16 +39,16 @@ class ApiDataService {
       final Map<String, dynamic> data = json.decode(response.body);
       return fromJson(data);
     } else {
-      print('response.statusCode is : ${response.statusCode}' );
+      print('response.statusCode is : ${response.statusCode}');
       return null;
     }
   }
 
   Future<List<T>?> _fetchProtectedDataList<T>(
-    String apiPath, T Function(Map<String, dynamic>) fromJson) async {
+      String apiPath, T Function(Map<String, dynamic>) fromJson) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token') ?? '';
-    
+
     final response = await http.get(
       Uri.parse(apiPath),
       headers: {
@@ -63,14 +61,10 @@ class ApiDataService {
       Iterable data = json.decode(response.body);
       return data.map((item) => fromJson(item)).toList();
     } else {
-      print('response.statusCode is : ${response.statusCode}' );
+      print('response.statusCode is : ${response.statusCode}');
       return null;
     }
   }
-
-
-
-
 
   //Login Operations
   Future<void> registerUser(String email, String password) async {
@@ -85,10 +79,8 @@ class ApiDataService {
 
     if (response.statusCode == 200) {
       print('basarili');
-
     } else {
-      print('basarisiz');
-
+      print('response.statusCode is : ${response.statusCode}');
     }
   }
 
@@ -108,13 +100,9 @@ class ApiDataService {
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', token);
     } else {
-      print('basarisiz');
-
+      print('response.statusCode is : ${response.statusCode}');
     }
   }
-
-
-
 
   //Movie Operations
   Future<List<Movie>> getMovies() async {
@@ -142,6 +130,26 @@ class ApiDataService {
     return null;
   }
 
+  Future<String> postMovie(Movie movie) async {
+    final response = await http.post(
+      Uri.parse('$serverName/Movies'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+      body: jsonEncode(movie.toJson()),
+    );
+
+    if (response.statusCode == 200) {
+      // Başarılı bir şekilde gönderildi
+
+      print('Movie posted successfully.');
+      return ('Movie posted successfully.');
+    } else {
+      // Hata durumu
+      print('Failed to post movie. Status code: ${response.statusCode}');
+    }
+    return ('Failed to post movie. Status code: ${response.statusCode}');
+  }
 
   // Censors Operations
   Future<List<Censor>>? getCensors() async {
@@ -155,7 +163,6 @@ class ApiDataService {
     } else {}
     return List.empty();
   }
-
 
   // Customer Operations
   Future<List<User>> getCustomers() async {
@@ -176,13 +183,12 @@ class ApiDataService {
     );
     if (user != null) {
       return user;
-    } else {
-    }
+    } else {}
     return User(Email: '');
   }
 
   // Subuser Operations
-    Future<List<User>> getSubUsers() async {
+  Future<List<User>> getSubUsers() async {
     final userList = await _fetchProtectedDataList<User>(
       '$serverName/Customers',
       (data) => (User.fromJson(data)),
@@ -200,8 +206,7 @@ class ApiDataService {
     );
     if (user != null) {
       return user;
-    } else {
-    }
+    } else {}
     return User(Email: '');
   }
 
@@ -212,9 +217,7 @@ class ApiDataService {
     );
     if (user != null) {
       return user;
-    } else {
-    }
+    } else {}
     return User(Email: '');
   }
-
 }
