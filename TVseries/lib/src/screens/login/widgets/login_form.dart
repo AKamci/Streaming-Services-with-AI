@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/constants/routes.dart';
-import 'package:tv_series/src/services/api_service.dart';
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -14,14 +13,20 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';
-  final ApiDataService apiService = ApiDataService();
+
   Future<void> _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      context.go(profile_selection_route);
-      await apiService.loginUser(_username,_password);
-
-      
+      bool loginSuccess = await apiService.loginUser(_username, _password);
+      apiService.customerId = (await apiService.getCustomerIdByMail(_username));
+      if (loginSuccess) {
+        context.go(profile_selection_route);
+      } else {
+        // Giriş başarısızsa kullanıcıya hata mesajı gösterebilirsiniz
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed. Please try again.')),
+        );
+      }
     }
   }
 
@@ -38,7 +43,8 @@ class _LoginFormState extends State<LoginForm> {
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 decoration: const InputDecoration(labelText: 'Username'),
-                validator: (value) => value!.isEmpty ? 'Please enter your username' : null,
+                validator: (value) =>
+                    value!.isEmpty ? 'Please enter your username' : null,
                 onSaved: (value) => _username = value!,
               ),
             ),
@@ -47,7 +53,8 @@ class _LoginFormState extends State<LoginForm> {
               child: TextFormField(
                 decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
-                validator: (value) => value!.isEmpty ? 'Please enter your password' : null,
+                validator: (value) =>
+                    value!.isEmpty ? 'Please enter your password' : null,
                 onSaved: (value) => _password = value!,
               ),
             ),

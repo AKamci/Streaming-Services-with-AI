@@ -1,4 +1,4 @@
-import 'package:tv_series/src/models/subUser.dart';
+import 'package:tv_series/src/models/subUserSub.dart';
 
 class User {
   String Email;
@@ -8,8 +8,8 @@ class User {
   User({required this.Email, this.Users});
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      Email: json['email'],
-      Users: json['Users'],
+      Email: json['value']['email'],
+      Users: json['value']['Users'],
     );
   }
 }

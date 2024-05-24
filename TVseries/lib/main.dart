@@ -9,5 +9,6 @@ import 'src/app.dart';
 void main() {
   setPathUrlStrategy();
   HttpOverrides.global = MyHttpOverrides();
+
   runApp(const MyApp());
 }

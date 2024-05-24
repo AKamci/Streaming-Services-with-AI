@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/components/header_bar.dart';
 import 'package:tv_series/src/components/navbar.dart';
+import 'package:tv_series/src/components/subUserForm.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/screens/login/login_screen.dart';
@@ -16,6 +17,13 @@ final GoRouter router = GoRouter(
       path: '/',
       builder: (BuildContext context, GoRouterState state) {
         return _loginPage();
+      },
+      //routes: <RouteBase>[],
+    ),
+    GoRoute(
+      path: '/formuser',
+      builder: (BuildContext context, GoRouterState state) {
+        return _formSubUser();
       },
       //routes: <RouteBase>[],
     ),
@@ -58,6 +66,14 @@ Widget _loginPage() {
     appBar: CustomHeaderBar(),
     drawer: NavBar(),
     body: LoginPage(),
+  );
+}
+
+Widget _formSubUser() {
+  return Scaffold(
+    appBar: CustomHeaderBar(),
+    drawer: NavBar(),
+    body: SubUserForm(),
   );
 }
 

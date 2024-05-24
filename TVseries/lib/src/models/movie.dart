@@ -18,29 +18,38 @@ class Movie {
     this.Category,
     this.Views,
   });
+
+  //     var myvalue = json['value'];
+  //   List<Movie> movieList= [];
+  //   for (var movieVal in myvalue) {
+  //     movieList.add(
+  //       Movie(MovieName: movieVal, MoviePoster: MoviePoster, MovieDescription: MovieDescription)
+  //       );
+  //   }
+
   //Movie({required this.MovieName, required this.MoviePoster, required this.MovieDescription, required this.ReleaseYear, required this.Director, required this.Cast, required this.Category, required this.Views});
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
-      MovieName: json['MovieName'],
-      MoviePoster: json['MoviePoster'],
-      MovieDescription: json['MovieDescription'],
-      ReleaseYear: json['ReleaseYear'],
-      Director: json['Director'],
-      Cast: json['Cast'],
-      Category: json['Category'],
-      Views: json['Views'],
+      MovieName: json['value']['movieName'],
+      MoviePoster: json['value']['moviePoster'],
+      MovieDescription: json['value']['movieDescription'],
+      ReleaseYear: json['value']['releaseYear'],
+      Director: json['value']['director'],
+      Cast: json['value']['cast'],
+      Category: json['value']['category'],
+      Views: json['value']['views'],
     );
   }
   Map<String, dynamic> toJson() {
     return {
-      'MovieName': MovieName,
-      'MoviePoster': MoviePoster,
-      'MovieDescription': MovieDescription,
-      'ReleaseYear': ReleaseYear?.toIso8601String(),
-      'Director': Director,
-      'Cast': Cast,
-      'Category': Category,
-      'Views': Views,
+      'movieName': MovieName,
+      'moviePoster': MoviePoster,
+      'movieDescription': MovieDescription,
+      'releaseYear': ReleaseYear?.toIso8601String(),
+      'director': Director,
+      'cast': Cast,
+      'category': Category,
+      'views': Views,
     };
   }
 }

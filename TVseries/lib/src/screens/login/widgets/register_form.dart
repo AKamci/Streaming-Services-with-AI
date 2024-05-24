@@ -13,11 +13,19 @@ class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';
-
-  void _submit() {
+  Future<void> _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      context.go(profile_selection_route);
+      bool registerSuccess =
+          await apiService.registerUser(_username, _password);
+      if (registerSuccess) {
+        context.go(profile_selection_route);
+      } else {
+        // Giriş başarısızsa kullanıcıya hata mesajı gösterebilirsiniz
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Login failed. Please try again.')),
+        );
+      }
     }
   }
 
@@ -34,7 +42,8 @@ class _RegisterFormState extends State<RegisterForm> {
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 decoration: const InputDecoration(labelText: 'Username'),
-                validator: (value) => value!.isEmpty ? 'Please enter your username' : null,
+                validator: (value) =>
+                    value!.isEmpty ? 'Please enter your username' : null,
                 onSaved: (value) => _username = value!,
               ),
             ),
@@ -43,7 +52,8 @@ class _RegisterFormState extends State<RegisterForm> {
               child: TextFormField(
                 decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
-                validator: (value) => value!.isEmpty ? 'Please enter your password' : null,
+                validator: (value) =>
+                    value!.isEmpty ? 'Please enter your password' : null,
                 onSaved: (value) => _password = value!,
               ),
             ),

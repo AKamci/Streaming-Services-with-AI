@@ -8,8 +8,10 @@ class Censor {
   });
   factory Censor.fromJson(Map<String, dynamic> json) {
     return Censor(
-      UserId: json['UserId'],
-      ClassName: json['ClassName'],
+      UserId: json['value']['UserId'],
+      ClassName: json['value']['ClassName'],
     );
   }
+
+  toJson() {}
 }

@@ -1,35 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tv_series/core/extensions/l10n_extensions.dart';
 import 'package:tv_series/src/constants/routes.dart';
-import 'package:tv_series/src/models/subUser.dart';
-import 'package:tv_series/src/models/user.dart';
-import 'package:tv_series/src/services/api_service.dart';
+import 'package:tv_series/src/models/subUserSub.dart';
 
 class ProfileSelectionPage extends StatefulWidget {
   const ProfileSelectionPage({super.key});
-  
+
   @override
   State<ProfileSelectionPage> createState() => _ProfileSelectionState();
 }
 
 class _ProfileSelectionState extends State<ProfileSelectionPage> {
-  late Future<User> futureUser;
   List<SubUser> subUserList = [];
+
+  SubUser subCreateUser = SubUser(
+      customerId: 9999,
+      name: 'dummydata',
+      surname: 'dummydata',
+      image: 'dummydata',
+      title: 'dummydata',
+      description: 'dummydata');
+  List<Widget> subUserWidgetList = [];
+
+  String titlePage = "eren";
+  String idno = "11";
 
   @override
   void initState() {
     super.initState();
-    fetchCustomerData();
+    _fetchCustomerData();
+    subUserWidgetList.add(subUserWidgetCreate(subCreateUser));
   }
 
-  
-
-  void fetchCustomerData() async {
-    ApiDataService apiService = ApiDataService();
-    User user = await apiService.getCustomer(1);
+  Future<void> _fetchCustomerData() async {
     setState(() {
-      subUserList = user.Users ?? [];
+      idno = apiService.customerId.toString();
     });
   }
 
@@ -53,7 +58,7 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
       child: Container(
         alignment: Alignment.topCenter,
         child: Text(
-          user.Title,
+          user.title.toString(),
         ),
       ),
     );
@@ -67,7 +72,7 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(context.translate.who_is_watching),
+        title: Text(titlePage),
       ),
       body: Center(
         child: Column(
@@ -75,10 +80,10 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
             Container(
               margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
               color: Colors.red,
-              child: Text(context.translate.who_is_watching),
+              child: Text(idno),
             ),
             Expanded(
-              child: subUserWidgetListGet(subUserList),
+              child: subUserWidgetList[0],
             ),
           ],
         ),

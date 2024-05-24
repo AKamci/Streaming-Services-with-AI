@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:tv_series/src/constants/routes.dart';
 
 class NavBar extends StatelessWidget {
   const NavBar({super.key});
@@ -31,7 +33,7 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('Settings'),
-            onTap: () => {Navigator.of(context).pop()},
+            onTap: () => {context.go('/formuser')},
           ),
           ListTile(
             leading: const Icon(Icons.border_color),

@@ -1,27 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:tv_series/src/models/movie.dart';
-import 'package:tv_series/src/screens/shows/widgets/media_grid.dart';
 import 'package:tv_series/src/services/api_service.dart';
 
 class ShowsPage extends StatefulWidget {
   // title = TVshows,Films
   final String title;
-  const ShowsPage({super.key,required this.title});
+  const ShowsPage({super.key, required this.title});
 
   @override
   State<ShowsPage> createState() => _ShowsPageState();
 }
 
 class _ShowsPageState extends State<ShowsPage> {
-
-  
-  late Future<List<Movie>> mediaList;
+  late Future<List<Movie>> movies;
   final ApiDataService apiDataService = ApiDataService();
 
   @override
   void initState() {
     super.initState();
-    mediaList = apiDataService.getMovies();
+    movies = apiDataService.getMovies();
   }
 
   @override
@@ -36,14 +33,25 @@ class _ShowsPageState extends State<ShowsPage> {
           ),
         ),
         FutureBuilder<List<Movie>>(
-          future: mediaList,
+          future: movies,
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
-              return CircularProgressIndicator();
+              return Center(child: CircularProgressIndicator());
             } else if (snapshot.hasError) {
-              return Text('Error: ${snapshot.error}');
+              return Center(child: Text('Error: ${snapshot.error}'));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return Center(child: Text('No movies found.'));
             } else {
-              return Expanded(child: MediaGrid(media: snapshot.data!));
+              return ListView.builder(
+                itemCount: snapshot.data!.length,
+                itemBuilder: (context, index) {
+                  final movie = snapshot.data![index];
+                  return ListTile(
+                    title: Text(movie.MovieName),
+                    subtitle: Text(movie.MovieDescription),
+                  );
+                },
+              );
             }
           },
         ),
