@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/subUserSub.dart';
-import 'package:tv_series/src/services/api_service.dart';
 
 class ProfileSelectionPage extends StatefulWidget {
   const ProfileSelectionPage({super.key});
@@ -13,7 +12,7 @@ class ProfileSelectionPage extends StatefulWidget {
 
 class _ProfileSelectionState extends State<ProfileSelectionPage> {
   List<SubUser> subUserList = [];
-  ApiDataService apiService =ApiDataService();
+  
   
   SubUser subCreateUser = SubUser();
   late Widget subUserWidgetList = subUserWidgetCreate(subCreateUser);
@@ -170,7 +169,9 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
                   padding: MaterialStateProperty.all<EdgeInsets>(
                       EdgeInsets.symmetric(vertical: 15.0, horizontal: 50.0)),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  context.goNamed(user_settings_route);
+                },
                 child: Text(
                   'User Settings',
                   style: TextStyle(

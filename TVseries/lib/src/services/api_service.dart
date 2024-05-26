@@ -19,10 +19,7 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 class ApiDataService {
-  ApiDataService(){
-    customerId = -1;
-    subUserId=-1;
-  }
+
   String serverName = "https://10.0.2.2:7242/api";
   String securityServerName = "https://10.0.2.2:7089/api";
   //String serverName = "https://192.168.52.18:7242/api";
@@ -295,12 +292,11 @@ class ApiDataService {
   //  return SubUser();
   //}
 
-  Future<List<SubUser>> getSubUsers(int customerId) async {
+  Future<List<SubUser>> getSubUsers(int myCustomerId) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token') ?? '';
-
     final response = await http.get(
-      Uri.parse('$serverName/Customers/GetCustomerWithUsers?id=$customerId'),
+      Uri.parse('$serverName/Customers/GetCustomerWithUsers?id=$myCustomerId'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
@@ -319,7 +315,7 @@ class ApiDataService {
     }
   }
 
-    Future<SubUser> getSubUser(int subUserId) async {
+  Future<SubUser> getSubUser(int subUserId) async {
     final user = await _fetchProtectedData<SubUser>(
       '$serverName/Users/$subUserId',
       (data) => (SubUser.fromJson(data)),

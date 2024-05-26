@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/constants/routes.dart';
-import 'package:tv_series/src/services/api_service.dart';
 
 class RegisterForm extends StatefulWidget {
   const RegisterForm({super.key});
@@ -11,7 +10,7 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  ApiDataService apiService =ApiDataService();
+  
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';

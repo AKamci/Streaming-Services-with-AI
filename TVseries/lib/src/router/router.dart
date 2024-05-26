@@ -15,26 +15,26 @@ final GoRouter router = GoRouter(
   initialLocation: '/',
   routes: [
     GoRoute(
-        path: '/',
-        //builder: (BuildContext context, GoRouterState state) {
-        //
-        //  return _loginPage();
-        //},
-        redirect: (context, state) async {
-          final bool isLoggedIn = await apiService.isLogin();
-          final bool isUserSelected = await apiService.isUserSelected();
-          if (!isLoggedIn) {
-            return login_route;
-          } else if (isLoggedIn) {
-            if (isUserSelected) {
-              return '/$shows_route';
-            } else {
-              return '/$profile_selection_route';
-            }
-          }
+      path: '/',
+      //builder: (BuildContext context, GoRouterState state) {
+      //
+      //  return _loginPage();
+      //},
+      redirect: (context, state) async {
+        final bool isLoggedIn = await apiService.isLogin();
+        final bool isUserSelected = await apiService.isUserSelected();
+        if (!isLoggedIn) {
           return login_route;
-        },
-        ),
+        } else if (isLoggedIn) {
+          if (isUserSelected) {
+            return '/$shows_route';
+          } else {
+            return '/$profile_selection_route';
+          }
+        }
+        return login_route;
+      },
+    ),
     // not  using to do
     GoRoute(
       path: '/$home_route',
@@ -44,12 +44,27 @@ final GoRouter router = GoRouter(
     ),
 
     GoRoute(
-      path: '/$profile_selection_route',
-      name: profile_selection_route,
-      builder: (BuildContext context, GoRouterState state) {
-        return _profileSelectionScreen();
-      },
-    ),
+        path: '/$profile_selection_route',
+        name: profile_selection_route,
+        builder: (BuildContext context, GoRouterState state) {
+          return _profileSelectionScreen();
+        },
+        routes: [
+          GoRoute(
+            path: user_form_route,
+            name: user_form_route,
+            builder: (BuildContext context, GoRouterState state) {
+              return _formSubUser();
+            },
+          ),
+          GoRoute(
+            path: user_settings_route,
+            name: user_settings_route,
+            builder: (BuildContext context, GoRouterState state) {
+              return _userSettings();
+            },
+          ),
+        ]),
     GoRoute(
       path: '/$shows_route',
       builder: (BuildContext context, GoRouterState state) {
@@ -73,20 +88,6 @@ final GoRouter router = GoRouter(
       },
     ),
     // navbar navigations
-    GoRoute(
-      path: '/$user_form_route',
-      name: user_form_route,
-      builder: (BuildContext context, GoRouterState state) {
-        return _formSubUser();
-      },
-    ),
-    GoRoute(
-      path: '/$user_settings_route',
-      name: user_settings_route,
-      builder: (BuildContext context, GoRouterState state) {
-        return _userSettings();
-      },
-    ),
   ],
 );
 

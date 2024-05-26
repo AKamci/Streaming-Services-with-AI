@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/censor.dart';
 import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/screens/show_details/widgets/overview.dart';
 import 'package:tv_series/src/screens/show_details/widgets/censors.dart';
-import 'package:tv_series/src/services/api_service.dart';
 
 class ShowDetailPage extends StatefulWidget {
   final Movie media;
@@ -23,7 +23,7 @@ class ShowDetailPageState extends State<ShowDetailPage> {
     String posterUrl = widget.media.MoviePoster;
     String? releaseDate = widget.media.ReleaseYear;
     String description = widget.media.MovieDescription;
-    late Future<List<Censor>>? censorship = ApiDataService().getCensors();
+    late Future<List<Censor>>? censorship = apiService.getCensors();
 
     Widget getSelectedWidget() {
       if (selectedButton == 'OVERVIEW') {

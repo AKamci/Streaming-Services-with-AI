@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+import 'package:tv_series/src/components/subUserForm.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/subUserSub.dart';
 
@@ -24,6 +24,7 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
   late TextEditingController _descriptionController;
   
   List<SubUser> subUserList = [];
+  late SubUser chooseSubUser;
   SubUser subCreateUser = SubUser();
   late Widget subUserWidgetList = subUserWidgetCreate(subCreateUser);
   
@@ -170,7 +171,12 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
   @override
   Widget build(BuildContext context) {
     
-      return Padding(
+      return Column(
+        children: [
+
+
+
+          Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
             key: _formKey,
@@ -221,7 +227,30 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
               ],
             ),
           ),
-        );
+        ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        ],
+      );
     
   }
 }

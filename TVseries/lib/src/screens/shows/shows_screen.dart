@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/screens/shows/widgets/media_card.dart';
-import 'package:tv_series/src/services/api_service.dart';
-
 class ShowsPage extends StatefulWidget {
   // title = TVshows, Films
   final String title;
@@ -14,12 +13,12 @@ class ShowsPage extends StatefulWidget {
 
 class _ShowsPageState extends State<ShowsPage> {
   late Future<List<Movie>> moviesFuture;
-  final ApiDataService apiDataService = ApiDataService();
+  
 
   @override
   void initState() {
     super.initState();
-    moviesFuture = apiDataService.getMovies();
+    moviesFuture = apiService.getMovies();
   }
 
   @override
