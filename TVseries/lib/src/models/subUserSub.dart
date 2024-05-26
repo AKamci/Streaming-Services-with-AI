@@ -3,6 +3,7 @@ import 'package:tv_series/src/models/movie.dart';
 
 class SubUser {
   int? customerId;
+  int? userId;
   String? name;
   String? surname;
   String? image;
@@ -17,6 +18,7 @@ class SubUser {
   List<Censor>? censors;
 
   SubUser({
+    this.userId,
     this.customerId,
     this.name,
     this.surname,
@@ -34,27 +36,28 @@ class SubUser {
 
   factory SubUser.fromJson(Map<String, dynamic> json) {
     return SubUser(
-      customerId: json['CustomerId'],
-      name: json['Name'],
-      surname: json['Surname'],
-      image: json['Image'],
-      title: json['Title'],
-      description: json['Description'],
-      pin: json['PIN'],
-      lastWatchedId: json['LastWatchedId'],
-      lastWatched: json['LastWatched'] != null
-          ? Movie.fromJson(json['LastWatched'])
+      userId: json['id'],
+      customerId: json['customerId'],
+      name: json['name'],
+      surname: json['surname'],
+      image: json['image'],
+      title: json['title'],
+      description: json['description'],
+      pin: json['pin'],
+      lastWatchedId: json['lastWatchedId'],
+      lastWatched: json['lastWatched'] != null
+          ? Movie.fromJson(json['lastWatched'])
           : null,
-      movies: (json['Movies'] as List?)
+      movies: (json['movies'] as List?)
           ?.map((item) => Movie.fromJson(item))
           .toList(),
-      favoriteMovies: (json['FavoriteMovies'] as List?)
+      favoriteMovies: (json['favoriteMovies'] as List?)
           ?.map((item) => Movie.fromJson(item))
           .toList(),
-      finishedMovies: (json['FinishedMovies'] as List?)
+      finishedMovies: (json['finishedMovies'] as List?)
           ?.map((item) => FinishedMovie.fromJson(item))
           .toList(),
-      censors: (json['Censors'] as List?)
+      censors: (json['censors'] as List?)
           ?.map((item) => Censor.fromJson(item))
           .toList(),
     );
@@ -62,22 +65,31 @@ class SubUser {
 
   Map<String, dynamic> toJson() {
     return {
-      'CustomerId': customerId,
-      'Name': name,
-      'Surname': surname,
-      'Image': image,
-      'Title': title,
-      'Description': description,
-      'PIN': pin,
-      'LastWatchedId': lastWatchedId,
-      'LastWatched': lastWatched?.toJson(),
-      'Movies': movies?.map((item) => item.toJson()).toList(),
-      'FavoriteMovies': favoriteMovies?.map((item) => item.toJson()).toList(),
-      'FinishedMovies': finishedMovies?.map((item) => item.toJson()).toList(),
-      'Censors': censors?.map((item) => item.toJson()).toList(),
+      'customerId': customerId,
+      'name': name,
+      'surname': surname,
+      'image': image,
+      'title': title,
+      'description': description
+    };
+  }
+
+  Map<String, dynamic> toJsonUpdate() {
+    return {
+      'id': userId,
+      'customerId': customerId,
+      'name': name,
+      'surname': surname,
+      'image': image,
+      'title': title,
+      'description': description,
+      'pin': pin,
+      'lastWatchedId': lastWatchedId 
     };
   }
 }
+
+
 
 class FinishedMovie {
   final String movieName;

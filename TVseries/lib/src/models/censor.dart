@@ -1,17 +1,26 @@
 class Censor {
   final int? UserId;
+  final int? id;
   final String ClassName;
 
   Censor({
     this.UserId,
     required this.ClassName,
+    this.id,
   });
   factory Censor.fromJson(Map<String, dynamic> json) {
     return Censor(
-      UserId: json['value']['UserId'],
-      ClassName: json['value']['ClassName'],
+      id: json['id'],
+      UserId: json['userId'],
+      ClassName: json['className']
     );
   }
 
-  toJson() {}
+    Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'userId': UserId,
+      'className': ClassName
+    };
+  }
 }

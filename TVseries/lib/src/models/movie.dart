@@ -2,7 +2,7 @@ class Movie {
   final String MovieName;
   final String MoviePoster;
   final String MovieDescription;
-  final DateTime? ReleaseYear;
+  final String? ReleaseYear;
   final String? Director;
   final String? Cast;
   final String? Category;
@@ -30,14 +30,14 @@ class Movie {
   //Movie({required this.MovieName, required this.MoviePoster, required this.MovieDescription, required this.ReleaseYear, required this.Director, required this.Cast, required this.Category, required this.Views});
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
-      MovieName: json['value']['movieName'],
-      MoviePoster: json['value']['moviePoster'],
-      MovieDescription: json['value']['movieDescription'],
-      ReleaseYear: json['value']['releaseYear'],
-      Director: json['value']['director'],
-      Cast: json['value']['cast'],
-      Category: json['value']['category'],
-      Views: json['value']['views'],
+      MovieName: json['movieName'],
+      MoviePoster: json['moviePoster'],
+      MovieDescription: json['movieDescription'],
+      ReleaseYear: json['releaseYear'],
+      Director: json['director'],
+      Cast: json['cast'],
+      Category: json['category'],
+      Views: json['views'],
     );
   }
   Map<String, dynamic> toJson() {
@@ -45,7 +45,7 @@ class Movie {
       'movieName': MovieName,
       'moviePoster': MoviePoster,
       'movieDescription': MovieDescription,
-      'releaseYear': ReleaseYear?.toIso8601String(),
+      'releaseYear': ReleaseYear,
       'director': Director,
       'cast': Cast,
       'category': Category,

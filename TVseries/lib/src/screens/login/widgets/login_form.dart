@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:tv_series/src/constants/routes.dart';
+
 
 class LoginForm extends StatefulWidget {
   const LoginForm({super.key});
@@ -14,13 +16,13 @@ class _LoginFormState extends State<LoginForm> {
   String _username = '';
   String _password = '';
 
-  Future<void> _submit() async {
+  void _submit() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       bool loginSuccess = await apiService.loginUser(_username, _password);
       apiService.customerId = (await apiService.getCustomerIdByMail(_username));
       if (loginSuccess) {
-        context.go(profile_selection_route);
+        context.go('/$profile_selection_route');
       } else {
         // Giriş başarısızsa kullanıcıya hata mesajı gösterebilirsiniz
         ScaffoldMessenger.of(context).showSnackBar(

@@ -30,7 +30,7 @@ class _LoginRegisterPageState extends State<LoginRegisterPage> {
               },
               child: Text('Login'),
             ),
-            SizedBox(width: 10),
+            
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: showLogin ? Colors.grey : Colors.blue,

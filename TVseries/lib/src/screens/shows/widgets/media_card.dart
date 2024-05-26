@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/movie.dart';
-import 'package:tv_series/src/router/router.dart';
 
 
 
@@ -19,8 +19,7 @@ class MediaCard extends StatelessWidget {
           Expanded(
             child: InkWell(
               onTap: () {
-                
-                router.go('$shows_route/$details_route',extra: media);
+                context.go('/$shows_route/$details_route',extra: media);
                 }, // Image tapped
               splashColor: Colors.white10, // Splash color over image
               child: Ink.image(

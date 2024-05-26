@@ -8,20 +8,20 @@ import 'package:tv_series/src/services/api_service.dart';
 class ShowDetailPage extends StatefulWidget {
   final Movie media;
 
-  ShowDetailPage({required this.media});
+  const ShowDetailPage({super.key, required this.media});
 
   @override
-  _ShowDetailPageState createState() => _ShowDetailPageState();
+  ShowDetailPageState createState() => ShowDetailPageState();
 }
 
-class _ShowDetailPageState extends State<ShowDetailPage> {
+class ShowDetailPageState extends State<ShowDetailPage> {
   String selectedButton = 'OVERVIEW';
 
   @override
   Widget build(BuildContext context) {
     String title = widget.media.MovieName;
     String posterUrl = widget.media.MoviePoster;
-    DateTime? releaseDate = widget.media.ReleaseYear;
+    String? releaseDate = widget.media.ReleaseYear;
     String description = widget.media.MovieDescription;
     late Future<List<Censor>>? censorship = ApiDataService().getCensors();
 
@@ -40,7 +40,10 @@ class _ShowDetailPageState extends State<ShowDetailPage> {
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
-                return CensorWidget(censorList: snapshot.data!);
+                return CensorWidget(
+                  censorList: snapshot.data!,
+                  media: widget.media,
+                );
               }
             },
           );
@@ -56,14 +59,16 @@ class _ShowDetailPageState extends State<ShowDetailPage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           InkWell(
-            onTap: () {}, // Image tapped
-            child: Image.asset(
-              posterUrl,
-              width: double.infinity,
-              //height: 200,
-              fit: BoxFit.fill,
-            ),
-          ),
+              onTap: () {}, // Image tapped
+              child: SizedBox(
+                width: double.infinity,
+                child: Image.asset(
+                  posterUrl,
+
+                  //height: 200,
+                  fit: BoxFit.fill,
+                ),
+              )),
           Padding(
             padding:
                 const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),

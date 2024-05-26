@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/components/header_bar.dart';
 import 'package:tv_series/src/components/navbar.dart';
 import 'package:tv_series/src/components/subUserForm.dart';
+import 'package:tv_series/src/components/userSettings.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/screens/login/login_screen.dart';
@@ -11,52 +12,80 @@ import 'package:tv_series/src/screens/show_details/show_details_screen.dart';
 import 'package:tv_series/src/screens/shows/shows_screen.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: login_route,
-  routes: <RouteBase>[
+  initialLocation: '/',
+  routes: [
     GoRoute(
-      path: '/',
+        path: '/',
+        //builder: (BuildContext context, GoRouterState state) {
+        //
+        //  return _loginPage();
+        //},
+        redirect: (context, state) async {
+          final bool isLoggedIn = await apiService.isLogin();
+          final bool isUserSelected = await apiService.isUserSelected();
+          if (!isLoggedIn) {
+            return login_route;
+          } else if (isLoggedIn) {
+            if (isUserSelected) {
+              return '/$shows_route';
+            } else {
+              return '/$profile_selection_route';
+            }
+          }
+          return login_route;
+        },
+        ),
+    // not  using to do
+    GoRoute(
+      path: '/$home_route',
       builder: (BuildContext context, GoRouterState state) {
-        return _loginPage();
+        return _showsPage();
       },
-      //routes: <RouteBase>[],
+    ),
+
+    GoRoute(
+      path: '/$profile_selection_route',
+      name: profile_selection_route,
+      builder: (BuildContext context, GoRouterState state) {
+        return _profileSelectionScreen();
+      },
     ),
     GoRoute(
-      path: '/formuser',
-      builder: (BuildContext context, GoRouterState state) {
-        return _formSubUser();
-      },
-      //routes: <RouteBase>[],
-    ),
-    GoRoute(
-      path: home_route,
-      builder: (BuildContext context, GoRouterState state) {
-        return _loginPage();
-      },
-    ),
-    GoRoute(
-        path: login_route,
-        builder: (BuildContext context, GoRouterState state) {
-          return _loginPage();
-        }),
-    GoRoute(
-        path: profile_selection_route,
-        builder: (BuildContext context, GoRouterState state) {
-          return _profileSelectionScreen();
-        }),
-    GoRoute(
-      path: shows_route,
+      path: '/$shows_route',
       builder: (BuildContext context, GoRouterState state) {
         return _showsPage();
       },
       routes: [
         GoRoute(
-          //extra: movie
-          path: '$details_route',
+          path: details_route,
+          name: details_route,
           builder: (context, state) {
             return _showDetailsPage(data: state.extra as Movie);
           },
         ),
       ],
+    ),
+
+    GoRoute(
+      path: login_route,
+      builder: (BuildContext context, GoRouterState state) {
+        return _loginPage();
+      },
+    ),
+    // navbar navigations
+    GoRoute(
+      path: '/$user_form_route',
+      name: user_form_route,
+      builder: (BuildContext context, GoRouterState state) {
+        return _formSubUser();
+      },
+    ),
+    GoRoute(
+      path: '/$user_settings_route',
+      name: user_settings_route,
+      builder: (BuildContext context, GoRouterState state) {
+        return _userSettings();
+      },
     ),
   ],
 );
@@ -77,6 +106,14 @@ Widget _formSubUser() {
   );
 }
 
+Widget _userSettings() {
+  return Scaffold(
+    appBar: CustomHeaderBar(),
+    drawer: NavBar(),
+    body: SubUserSettingsPage(subUserId: apiService.subUserId),
+  );
+}
+
 Widget _profileSelectionScreen() {
   return const Scaffold(
     appBar: CustomHeaderBar(),
@@ -86,7 +123,7 @@ Widget _profileSelectionScreen() {
 }
 
 Widget _showsPage() {
-  return Scaffold(
+  return const Scaffold(
     appBar: CustomHeaderBar(),
     drawer: NavBar(),
     body: ShowsPage(

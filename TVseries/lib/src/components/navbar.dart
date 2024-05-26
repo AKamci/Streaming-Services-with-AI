@@ -22,23 +22,23 @@ class NavBar extends StatelessWidget {
           ),
           ListTile(
             leading: const Icon(Icons.input),
-            title: const Text('Welcome'),
-            onTap: () => {Navigator.pushNamed(context, '/shows')},
+            title: const Text('Favorites'),
+            onTap: () => {context.go('/shows')},
           ),
-          ListTile(
-            leading: const Icon(Icons.verified_user),
-            title: const Text('Profile'),
-            onTap: () => {Navigator.of(context).pop()},
-          ),
+          //ListTile(
+          //  leading: const Icon(Icons.verified_user),
+          //  title: const Text('Profile'),
+          //  onTap: () => {Navigator.of(context).pop()},
+          //),
           ListTile(
             leading: const Icon(Icons.settings),
-            title: const Text('Settings'),
-            onTap: () => {context.go('/formuser')},
+            title: const Text('User add'),
+            onTap: () => {context.go(user_form_route)},
           ),
           ListTile(
             leading: const Icon(Icons.border_color),
-            title: const Text('Feedback'),
-            onTap: () => {Navigator.of(context).pop()},
+            title: const Text('User Settings'),
+            onTap: () => {context.go(user_settings_route)},
           ),
           ListTile(
             leading: const Icon(Icons.exit_to_app),

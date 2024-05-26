@@ -6,7 +6,9 @@ import 'package:tv_series/src/models/censor.dart';
 import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/models/subUserSub.dart';
 import 'package:tv_series/src/models/user.dart';
+import 'package:logger/logger.dart';
 
+final logger = Logger();
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -17,11 +19,54 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 class ApiDataService {
-  String serverName = "https://192.168.52.18:7242/api";
-  String securityServerName = "https://192.168.52.18:7089/api";
+  ApiDataService(){
+    customerId = -1;
+    subUserId=-1;
+  }
+  String serverName = "https://10.0.2.2:7242/api";
+  String securityServerName = "https://10.0.2.2:7089/api";
+  //String serverName = "https://192.168.52.18:7242/api";
+  //String securityServerName = "https://192.168.52.18:7089/api";
 
   int customerId = -1;
   int subUserId = -1;
+
+  Future<bool> isLogin() async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final prefMail = prefs.getString('userMail');
+    if (token != null) {
+      logger.d('MY_LOG: user is token string is : $token');
+      logger.d('MY_LOG: user is mail string is : $prefMail');
+      if (customerId != -1) {
+        return true;
+      } else if (prefMail != null) {
+        customerId = await getCustomerIdByMail(prefMail);
+        if (customerId == -1) {
+          logger.d('MY_LOG: user is login id is  : $customerId Unauthorized');
+          return false;
+        }
+        logger.d('MY_LOG: user is login id is  : $customerId');
+        return true;
+      }
+      return false;
+    } else {
+      logger.d('MY_LOG: user is not login');
+      return false;
+    }
+    
+
+  }
+
+  Future<bool> isUserSelected() async {
+    if (subUserId != -1) {
+      logger.d('MY_LOG: user selected and id is : $subUserId');
+      return true;
+    } else {
+      logger.d('MY_LOG: user is not selected');
+      return false;
+    }
+  }
 
   // General Operations
   Future<T?> _fetchProtectedData<T>(
@@ -36,11 +81,13 @@ class ApiDataService {
       },
     );
     if (response.statusCode == 200) {
-      print(token);
       final Map<String, dynamic> data = json.decode(response.body);
-      return fromJson(data);
+      
+      final fetchedData = fromJson(data['value']);
+      logger.d('MY_LOG: fetched data is: $fetchedData');
+      return fetchedData;
     } else {
-      print('response.statusCode is : ${response.statusCode}');
+      logger.d('MY_LOG: response.statusCode is : ${response.statusCode}');
       return null;
     }
   }
@@ -61,9 +108,10 @@ class ApiDataService {
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
       Iterable list = data['value'];
+      logger.d('MY_LOG: List of data is : $list');
       return list.map((item) => fromJson(item)).toList();
     } else {
-      print('response.statusCode is : ${response.statusCode}');
+      logger.d('MY_LOG: response.statusCode is : ${response.statusCode}');
       return null;
     }
   }
@@ -80,10 +128,11 @@ class ApiDataService {
     );
 
     if (response.statusCode == 200) {
-      print('basarili');
+      logger.d('MY_LOG: register success');
+
       return true;
     } else {
-      print('response.statusCode is : ${response.statusCode}');
+      logger.d('MY_LOG: response.statusCode is : ${response.statusCode}');
       return false;
     }
   }
@@ -99,14 +148,15 @@ class ApiDataService {
     );
 
     if (response.statusCode == 200) {
-      print('basarili');
+      logger.d("MY_LOG: login success");
       final token = response.body;
       final prefs = await SharedPreferences.getInstance();
       await prefs.setString('token', token);
-      print(token);
+      await prefs.setString('userMail', email);
+      logger.d("MY_LOG: token is : $token");
       return true; // Giriş başarılı
     } else {
-      print('response.statusCode is : ${response.statusCode}');
+      logger.d('MY_LOG: response.statusCode is : ${response.statusCode}');
       return false; // Giriş başarısız
     }
   }
@@ -121,7 +171,7 @@ class ApiDataService {
     if (media != null) {
       return media;
     } else {
-      print('this is empty data');
+      logger.d('MY_LOG: this is empty data');
       return List.empty();
     }
   }
@@ -133,7 +183,9 @@ class ApiDataService {
     );
     if (media != null) {
       return media;
-    } else {}
+    } else {
+      logger.d('MY_LOG: this is empty data');
+    }
     return null;
   }
 
@@ -147,12 +199,12 @@ class ApiDataService {
     );
 
     if (response.statusCode == 200) {
-      // Başarılı bir şekilde gönderildi
-      print('Movie posted successfully.');
+      logger.d('MY_LOG: Movie posted successfully.');
       return ('Movie posted successfully.');
     } else {
       // Hata durumu
-      print('Failed to post movie. Status code: ${response.statusCode}');
+      logger.d(
+          'MY_LOG: Failed to post movie. Status code: ${response.statusCode}');
     }
     return ('Failed to post movie. Status code: ${response.statusCode}');
   }
@@ -160,7 +212,7 @@ class ApiDataService {
   // Censors Operations
   Future<List<Censor>> getCensors() async {
     final censorList = await _fetchProtectedDataList<Censor>(
-      '$serverName/Censor',
+      '$serverName/Censors',
       (data) => (Censor.fromJson(data)),
     );
 
@@ -194,9 +246,18 @@ class ApiDataService {
   }
 
   Future<int> getCustomerIdByMail(String mail) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token') ?? '';
+
     final String url = '$serverName/Customers/GetCustomerIdByMail?Email=$mail';
     try {
-      final response = await http.get(Uri.parse(url));
+      final response = await http.get(
+        Uri.parse(url),
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
       if (response.statusCode == 200) {
         // Assuming the response body contains a JSON object with an 'id' field
         final Map<String, dynamic> responseData = json.decode(response.body);
@@ -206,7 +267,7 @@ class ApiDataService {
         throw Exception('Failed to load customer ID');
       }
     } catch (e) {
-      print('Error: $e');
+      logger.d('MY_LOG: Error: $e');
       return -1; // Or handle error appropriately
     }
   }
@@ -248,13 +309,28 @@ class ApiDataService {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
+
       Iterable users = data['value']['users'];
+      logger.d('MY_LOG: Users data is: $users');
       return users.map((user) => SubUser.fromJson(user)).toList();
     } else {
-      print('response.statusCode is : ${response.statusCode}');
+      logger.d('MY_LOG: response.statusCode is : ${response.statusCode}');
       return [];
     }
   }
+
+    Future<SubUser> getSubUser(int subUserId) async {
+    final user = await _fetchProtectedData<SubUser>(
+      '$serverName/Users/$subUserId',
+      (data) => (SubUser.fromJson(data)),
+    );
+    if (user != null) {
+      return user;
+    } else {}
+    return SubUser();
+
+  }
+
 
   Future<String> postSubUser(SubUser subUser) async {
     final prefs = await SharedPreferences.getInstance();
@@ -271,13 +347,35 @@ class ApiDataService {
 
     if (response.statusCode == 200) {
       // Başarılı bir şekilde gönderildi
-      print('SubUser posted successfully.');
+      logger.d('MY_LOG: SubUser posted successfully.');
       return 'SubUser posted successfully.';
     } else {
       // Hata durumu
-      print('Failed to post subUser. Status code: ${response.statusCode}');
-      print(subUser.toJson());
+      logger.d(
+          'MY_LOG: Failed to post subUser. Status code: ${response.statusCode}');
+      logger.d('MY_LOG: subuser is : ${subUser.toJson()}');
     }
     return 'Failed to post subUser. Status code: ${response.statusCode}';
+  }
+
+  Future<bool> updateSubUser(SubUser subUser) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final url = '$serverName/Users';
+    final response = await http.put(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(subUser.toJsonUpdate()),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      logger.d('MY_LOG: Failed to update subuser: ${response.statusCode}');
+      return false;
+    }
   }
 }
