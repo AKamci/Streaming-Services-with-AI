@@ -33,12 +33,12 @@ class NavBar extends StatelessWidget {
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('User add'),
-            onTap: () => {context.go(user_form_route)},
+            onTap: () => {context.goNamed(user_form_route)},
           ),
           ListTile(
             leading: const Icon(Icons.border_color),
             title: const Text('User Settings'),
-            onTap: () => {context.go(user_settings_route)},
+            onTap: () => {context.goNamed(user_settings_route)},
           ),
           ListTile(
             leading: const Icon(Icons.exit_to_app),

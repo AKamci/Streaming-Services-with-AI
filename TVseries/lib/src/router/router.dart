@@ -3,16 +3,17 @@ import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/components/header_bar.dart';
 import 'package:tv_series/src/components/navbar.dart';
 import 'package:tv_series/src/components/subUserForm.dart';
-import 'package:tv_series/src/components/userSettings.dart';
+import 'package:tv_series/src/components/usersettingv2.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/screens/login/login_screen.dart';
 import 'package:tv_series/src/screens/profile_selection/profile_selection_screen.dart';
 import 'package:tv_series/src/screens/show_details/show_details_screen.dart';
 import 'package:tv_series/src/screens/shows/shows_screen.dart';
+import 'package:tv_series/src/screens/video_play/video_player_screen';
 
 final GoRouter router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/video',
   routes: [
     GoRoute(
       path: '/',
@@ -87,6 +88,14 @@ final GoRouter router = GoRouter(
         return _loginPage();
       },
     ),
+
+
+    GoRoute(
+      path: '/video',
+      builder: (BuildContext context, GoRouterState state) {
+        return _videoPlay();
+      },
+    ),
     // navbar navigations
   ],
 );
@@ -109,9 +118,10 @@ Widget _formSubUser() {
 
 Widget _userSettings() {
   return Scaffold(
+    resizeToAvoidBottomInset: false,
     appBar: CustomHeaderBar(),
     drawer: NavBar(),
-    body: SubUserSettingsPage(subUserId: apiService.subUserId),
+    body: SubUserSettingsPage(),
   );
 }
 
@@ -138,5 +148,13 @@ Widget _showDetailsPage({required Movie data}) {
     appBar: const CustomHeaderBar(),
     drawer: const NavBar(),
     body: ShowDetailPage(media: data),
+  );
+}
+
+Widget _videoPlay() {
+  return Scaffold(
+    appBar: const CustomHeaderBar(),
+    drawer: const NavBar(),
+    body: VideoPlayerScreen(),
   );
 }

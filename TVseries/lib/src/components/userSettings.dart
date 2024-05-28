@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/subUserSub.dart';
 
@@ -10,125 +9,27 @@ class SubUserSettingsPage extends StatefulWidget {
     Key? key,
     required this.subUserId,
   }) : super(key: key);
-  
+
   @override
   _SubUserSettingsPageState createState() => _SubUserSettingsPageState();
 }
 
 class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
   final _formKey = GlobalKey<FormState>();
+
   late TextEditingController _nameController;
   late TextEditingController _surnameController;
   late TextEditingController _imageController;
   late TextEditingController _titleController;
   late TextEditingController _descriptionController;
-  
-  List<SubUser> subUserList = [];
-  SubUser subCreateUser = SubUser();
-  late Widget subUserWidgetList = subUserWidgetCreate(subCreateUser);
-  
+
+  late Future<SubUser> _futureSubUser;
+
   @override
   void initState() {
-    _fetchCustomerData();
     super.initState();
+    _futureSubUser = apiService.getSubUser(widget.subUserId);
   }
-
-
-
-  Future<void> _fetchCustomerUserData(String idno) async {
-    subUserList = await apiService.getSubUsers(int.parse(idno));
-    setState(() {
-      subUserWidgetList = subUserWidgetListGet(subUserList);
-    });
-  }
-
-  Future<void> _fetchCustomerData() async {
-    String customerId = apiService.customerId.toString();
-    
-    await _fetchCustomerUserData(customerId);
-  }
-
-
-
-
-  Widget subUserWidgetListGet(List<SubUser> userList) {
-    List<Widget> userWidget = [];
-    for (var i = 0; i < userList.length; i++) {
-      userWidget.add(subUserWidgetCreate(userList[i]));
-    }
-    userWidget.add(InkWell(
-      onTap: () {
-        
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.red,
-          image: DecorationImage(
-            image: AssetImage('assets/images/simp.png'),
-            fit: BoxFit.contain,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          color: Colors.black54,
-          padding: EdgeInsets.symmetric(vertical: 5),
-          width: double.infinity,
-          child: Text(
-            'user add',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    ));
-
-    return Row(
-      children: userWidget,
-    );
-  }
-
-  Widget subUserWidgetCreate(SubUser user) {
-    return InkWell(
-      onTap: () {
-        
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.red,
-          image: DecorationImage(
-            image:
-                //NetworkImage(user.image ?? 'https://via.placeholder.com/150'),
-                NetworkImage('https://via.placeholder.com/150'),
-            fit: BoxFit.cover,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          color: Colors.black54,
-          padding: EdgeInsets.symmetric(vertical: 5),
-          width: double.infinity,
-          child: Text(
-            user.title ?? '',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    );
-  }
-
-
-
-
-
 
   @override
   void dispose() {
@@ -140,7 +41,7 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
     super.dispose();
   }
 
-  void _updateSubUser(SubUser subUser) {
+  Future<void> _updateSubUser(SubUser subUser) async {
     if (_formKey.currentState!.validate()) {
       SubUser updatedSubUser = SubUser(
         userId: subUser.userId,
@@ -150,10 +51,16 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
         image: _imageController.text,
         title: _titleController.text,
         description: _descriptionController.text,
+        pin: subUser.pin,
+        lastWatchedId: subUser.lastWatchedId,
+        lastWatched: subUser.lastWatched,
+        movies: subUser.movies,
+        favoriteMovies: subUser.favoriteMovies,
+        finishedMovies: subUser.finishedMovies,
+        censors: subUser.censors,
       );
 
-      // Asenkron API çağrısı olmadan güncelleme işlemi.
-      bool success = true; // Simulated success response.
+      bool success = await apiService.updateSubUser(updatedSubUser);
 
       if (success) {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -169,63 +76,77 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    
-      return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              children: [
-                
-                for (var subUser in subUserList) ...[
-                
-                  TextFormField(
-                    controller: TextEditingController(text: subUser.name),
-                    decoration: InputDecoration(labelText: 'Name'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a name';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: TextEditingController(text: subUser.surname),
-                    decoration: InputDecoration(labelText: 'Surname'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a surname';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: TextEditingController(text: subUser.image),
-                    decoration: InputDecoration(labelText: 'Image URL'),
-                  ),
-                  TextFormField(
-                    controller: TextEditingController(text: subUser.title),
-                    decoration: InputDecoration(labelText: 'Title'),
-                  ),
-                  TextFormField(
-                    controller: TextEditingController(text: subUser.description),
-                    decoration: InputDecoration(labelText: 'Description'),
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () => _updateSubUser(subUser),
-                    child: Text('Update ${subUser.name}'),
-                  ),
-                  Divider(),
-                ]
-              ],
-            ),
-          ),
-        );
-    
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Update SubUser Settings'),
+      ),
+      body: FutureBuilder<SubUser>(
+        future: _futureSubUser,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (snapshot.hasData) {
+            var subUser = snapshot.data!;
+            _nameController = TextEditingController(text: subUser.name);
+            _surnameController = TextEditingController(text: subUser.surname);
+            _imageController = TextEditingController(text: subUser.image);
+            _titleController = TextEditingController(text: subUser.title);
+            _descriptionController = TextEditingController(text: subUser.description);
+
+            return Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Form(
+                key: _formKey,
+                child: ListView(
+                  children: [
+                    TextFormField(
+                      controller: _nameController,
+                      decoration: InputDecoration(labelText: 'Name'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a name';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _surnameController,
+                      decoration: InputDecoration(labelText: 'Surname'),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please enter a surname';
+                        }
+                        return null;
+                      },
+                    ),
+                    TextFormField(
+                      controller: _imageController,
+                      decoration: InputDecoration(labelText: 'Image URL'),
+                    ),
+                    TextFormField(
+                      controller: _titleController,
+                      decoration: InputDecoration(labelText: 'Title'),
+                    ),
+                    TextFormField(
+                      controller: _descriptionController,
+                      decoration: InputDecoration(labelText: 'Description'),
+                    ),
+                    SizedBox(height: 20),
+                    ElevatedButton(
+                      onPressed: () => _updateSubUser(subUser),
+                      child: Text('Update'),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return Center(child: Text('No data found'));
+          }
+        },
+      ),
+    );
   }
 }
-
-
-
-

@@ -1,41 +1,80 @@
 import 'package:flutter/material.dart';
-import 'package:tv_series/src/components/subUserForm.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/subUserSub.dart';
 
 class SubUserSettingsPage extends StatefulWidget {
-  final int subUserId;
+  const SubUserSettingsPage({super.key});
 
-  const SubUserSettingsPage({
-    Key? key,
-    required this.subUserId,
-  }) : super(key: key);
-  
   @override
-  _SubUserSettingsPageState createState() => _SubUserSettingsPageState();
+  State<SubUserSettingsPage> createState() => _SubUserSettingsPageState();
 }
 
 class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
-  final _formKey = GlobalKey<FormState>();
-  late TextEditingController _nameController;
-  late TextEditingController _surnameController;
-  late TextEditingController _imageController;
-  late TextEditingController _titleController;
-  late TextEditingController _descriptionController;
-  
   List<SubUser> subUserList = [];
-  late SubUser chooseSubUser;
   SubUser subCreateUser = SubUser();
-  late Widget subUserWidgetList = subUserWidgetCreate(subCreateUser);
-  
+  late Widget subUserWidgetList = subUserWidgetCreate(subCreateUser, 0);
+  String idno = "11";
+
+  int selectedUserNo = -1;
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController(text: "");
+  TextEditingController surnameController = TextEditingController(text: "");
+  TextEditingController imageController = TextEditingController(text: "");
+  TextEditingController titleController = TextEditingController(text: "");
+  TextEditingController descriptionController = TextEditingController(text: "");
+
+
+
   @override
   void initState() {
-    _fetchCustomerData();
     super.initState();
+    _fetchCustomerData();
   }
 
+  textEdit(int selectedUserIndex) {
+    setState(() {
+      nameController =
+          TextEditingController(text: subUserList[selectedUserIndex].name);
+      surnameController =
+          TextEditingController(text: subUserList[selectedUserIndex].surname);
+      imageController =
+          TextEditingController(text: subUserList[selectedUserIndex].image);
+      titleController =
+          TextEditingController(text: subUserList[selectedUserIndex].title);
+      descriptionController = TextEditingController(
+          text: subUserList[selectedUserIndex].description);
+    });
+  }
 
+  //user form functions
+  Future<void> _updateSubUser(SubUser subUser) async {
+    if (_formKey.currentState!.validate()) {
+      SubUser updatedSubUser = SubUser(
+        userId: subUser.userId,
+        customerId: subUser.customerId,
+        name: nameController.text,
+        surname: surnameController.text,
+        image: imageController.text,
+        title: titleController.text,
+        description: descriptionController.text,
+        pin: subUser.pin,
+        lastWatchedId: subUser.lastWatchedId,
+      );
 
+      bool success = await apiService.updateSubUser(updatedSubUser);
+
+      if (success) {
+        context.go('/$shows_route');
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Failed to update SubUser.'),
+        ));
+      }
+    }
+  }
+
+  // user functions
   Future<void> _fetchCustomerUserData(String idno) async {
     subUserList = await apiService.getSubUsers(int.parse(idno));
     setState(() {
@@ -45,57 +84,62 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
 
   Future<void> _fetchCustomerData() async {
     String customerId = apiService.customerId.toString();
-    
-    await _fetchCustomerUserData(customerId);
+    setState(() {
+      idno = customerId;
+    });
+    await _fetchCustomerUserData(idno);
   }
-
-
-
 
   Widget subUserWidgetListGet(List<SubUser> userList) {
     List<Widget> userWidget = [];
     for (var i = 0; i < userList.length; i++) {
-      userWidget.add(subUserWidgetCreate(userList[i]));
+      userWidget.add(subUserWidgetCreate(userList[i], i));
     }
-    userWidget.add(InkWell(
-      onTap: () {
-        
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.red,
-          image: DecorationImage(
-            image: AssetImage('assets/images/simp.png'),
-            fit: BoxFit.contain,
-          ),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          color: Colors.black54,
-          padding: EdgeInsets.symmetric(vertical: 5),
-          width: double.infinity,
-          child: Text(
-            'user add',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-            ),
-            textAlign: TextAlign.center,
-          ),
-        ),
-      ),
-    ));
+    //user add func
+    //userWidget.add(InkWell(
+    //  onTap: () {
+    //    context.goNamed(user_form_route);
+    //  },
+    //  child: Container(
+    //    decoration: BoxDecoration(
+    //      color: Colors.red,
+    //      image: DecorationImage(
+    //        image: AssetImage('assets/images/simp.png'),
+    //        fit: BoxFit.contain,
+    //      ),
+    //      borderRadius: BorderRadius.circular(10),
+    //    ),
+    //    alignment: Alignment.bottomCenter,
+    //    child: Container(
+    //      color: Colors.black54,
+    //      padding: EdgeInsets.symmetric(vertical: 5),
+    //      width: double.infinity,
+    //      child: Text(
+    //        'user add',
+    //        style: TextStyle(
+    //          color: Colors.white,
+    //          fontSize: 16,
+    //        ),
+    //        textAlign: TextAlign.center,
+    //      ),
+    //    ),
+    //  ),
+    //));
 
-    return Row(
+    return GridView.count(
+      crossAxisCount: 1,
+      scrollDirection: Axis.horizontal,
+      crossAxisSpacing: 10.0,
+      mainAxisSpacing: 30.0,
+      padding: EdgeInsets.fromLTRB(10, 10, 20, 0),
       children: userWidget,
     );
   }
 
-  Widget subUserWidgetCreate(SubUser user) {
+  Widget subUserWidgetCreate(SubUser user, int selectedNo) {
     return InkWell(
       onTap: () {
-        
+        _submit(user.userId, selectedNo);
       },
       child: Container(
         decoration: BoxDecoration(
@@ -115,7 +159,7 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
           width: double.infinity,
           child: Text(
             user.title ?? '',
-            style: TextStyle(
+            style: const TextStyle(
               color: Colors.white,
               fontSize: 16,
             ),
@@ -126,135 +170,96 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
     );
   }
 
-
-
-
-
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _surnameController.dispose();
-    _imageController.dispose();
-    _titleController.dispose();
-    _descriptionController.dispose();
-    super.dispose();
-  }
-
-  void _updateSubUser(SubUser subUser) {
-    if (_formKey.currentState!.validate()) {
-      SubUser updatedSubUser = SubUser(
-        userId: subUser.userId,
-        customerId: subUser.customerId,
-        name: _nameController.text,
-        surname: _surnameController.text,
-        image: _imageController.text,
-        title: _titleController.text,
-        description: _descriptionController.text,
-      );
-
-      // Asenkron API çağrısı olmadan güncelleme işlemi.
-      bool success = true; // Simulated success response.
-
-      if (success) {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('SubUser updated successfully!'),
-        ));
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Failed to update SubUser.'),
-        ));
-      }
+  void _submit(int? userNo, int selectedNo) {
+    if (userNo != null) {
+      apiService.subUserId = userNo;
+      selectedUserNo = selectedNo;
+      textEdit(selectedNo);
+    } else {
+      apiService.subUserId = -1;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    
-      return Column(
+    return Center(
+      child: Column(
         children: [
-
-
-
-          Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child: ListView(
-              children: [
-                
-                for (var subUser in subUserList) ...[
-                
-                  TextFormField(
-                    controller: TextEditingController(text: subUser.name),
-                    decoration: InputDecoration(labelText: 'Name'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a name';
-                      }
-                      return null;
-                    },
+          Expanded(
+              flex: 1,
+              child: Container(
+                padding: EdgeInsets.fromLTRB(10, 25, 10, 30),
+                child: subUserWidgetList,
+              )),
+          Expanded(
+            flex: 4,
+            child: Container(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Form(
+                  key: _formKey,
+                  child: ListView(
+                    children: [
+                      TextFormField(
+                        controller: nameController,
+                        decoration: InputDecoration(labelText: 'Name'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a name';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        controller: surnameController,
+                        decoration: InputDecoration(labelText: 'Surname'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a surname';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        controller: imageController,
+                        decoration: InputDecoration(labelText: 'Image URL'),
+                      ),
+                      TextFormField(
+                        controller: titleController,
+                        decoration: InputDecoration(labelText: 'Title'),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Please enter a Title';
+                          }
+                          return null;
+                        },
+                      ),
+                      TextFormField(
+                        controller: descriptionController,
+                        decoration: InputDecoration(labelText: 'Description'),
+                      ),
+                      SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          if (selectedUserNo!=-1) {
+                            _updateSubUser(subUserList[selectedUserNo]);
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Please select a User.'),
+                            ));
+                          }
+                          
+                        },
+                        child: Text('Update $selectedUserNo'),
+                      ),
+                    ],
                   ),
-                  TextFormField(
-                    controller: TextEditingController(text: subUser.surname),
-                    decoration: InputDecoration(labelText: 'Surname'),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter a surname';
-                      }
-                      return null;
-                    },
-                  ),
-                  TextFormField(
-                    controller: TextEditingController(text: subUser.image),
-                    decoration: InputDecoration(labelText: 'Image URL'),
-                  ),
-                  TextFormField(
-                    controller: TextEditingController(text: subUser.title),
-                    decoration: InputDecoration(labelText: 'Title'),
-                  ),
-                  TextFormField(
-                    controller: TextEditingController(text: subUser.description),
-                    decoration: InputDecoration(labelText: 'Description'),
-                  ),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: () => _updateSubUser(subUser),
-                    child: Text('Update ${subUser.name}'),
-                  ),
-                  Divider(),
-                ]
-              ],
+                ),
+              ),
             ),
           ),
-        ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         ],
-      );
-    
+      ),
+    );
   }
 }
-
-
-
-

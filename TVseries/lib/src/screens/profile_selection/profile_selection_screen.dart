@@ -11,6 +11,7 @@ class ProfileSelectionPage extends StatefulWidget {
 }
 
 class _ProfileSelectionState extends State<ProfileSelectionPage> {
+  
   List<SubUser> subUserList = [];
   
   
@@ -22,10 +23,11 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
 
   @override
   void initState() {
-    
-    _fetchCustomerData();
     super.initState();
+    _fetchCustomerData();
   }
+  
+
 
   Future<void> _fetchCustomerUserData(String idno) async {
     subUserList = await apiService.getSubUsers(int.parse(idno));

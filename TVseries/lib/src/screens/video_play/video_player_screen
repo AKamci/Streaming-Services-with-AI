@@ -1,0 +1,78 @@
+import 'dart:io';
+import 'dart:typed_data';
+import 'package:flutter/material.dart';
+import 'package:video_player/video_player.dart';
+import 'package:flutter_ffmpeg/flutter_ffmpeg.dart';
+
+
+
+
+class VideoPlayerScreen extends StatefulWidget {
+  @override
+  _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
+}
+
+class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
+  VideoPlayerController? _controller;
+  String _filePath = 'video_stream.mp4';
+  bool _isPlaying = false;
+  final _ffmpeg = FlutterFFmpeg();
+
+  @override
+  void initState() {
+    super.initState();
+    _receiveVideo();
+  }
+
+  Future<void> _receiveVideo() async {
+    final socket = await Socket.connect('YOUR_SERVER_IP', 8080);
+    final file = File(_filePath).openWrite();
+    socket.listen(
+      (Uint8List data) {
+        file.add(data);
+      },
+      onDone: () async {
+        await file.close();
+        if (!_isPlaying) {
+          _initializeVideo();
+        }
+      },
+      onError: (error) {
+        print('Error: $error');
+      },
+    );
+  }
+
+  Future<void> _initializeVideo() async {
+    _controller = VideoPlayerController.file(File(_filePath))
+      ..initialize().then((_) {
+        setState(() {
+          _controller!.play();
+          _isPlaying = true;
+        });
+      });
+  }
+
+  @override
+  void dispose() {
+    _controller?.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('TCP Video Player'),
+      ),
+      body: Center(
+        child: _controller != null && _controller!.value.isInitialized
+            ? AspectRatio(
+                aspectRatio: _controller!.value.aspectRatio,
+                child: VideoPlayer(_controller!),
+              )
+            : CircularProgressIndicator(),
+      ),
+    );
+  }
+}
