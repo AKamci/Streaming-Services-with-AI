@@ -10,10 +10,10 @@ import 'package:tv_series/src/screens/login/login_screen.dart';
 import 'package:tv_series/src/screens/profile_selection/profile_selection_screen.dart';
 import 'package:tv_series/src/screens/show_details/show_details_screen.dart';
 import 'package:tv_series/src/screens/shows/shows_screen.dart';
-import 'package:tv_series/src/screens/video_play/video_player_screen';
+import 'package:tv_series/src/screens/video_play/video_player_screenv2.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: '/video',
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
@@ -92,6 +92,7 @@ final GoRouter router = GoRouter(
 
     GoRoute(
       path: '/video',
+      name: 'video',
       builder: (BuildContext context, GoRouterState state) {
         return _videoPlay();
       },

@@ -19,10 +19,7 @@ class ShowDetailPageState extends State<ShowDetailPage> {
 
   @override
   Widget build(BuildContext context) {
-    String title = widget.media.MovieName;
     String posterUrl = widget.media.MoviePoster;
-    String? releaseDate = widget.media.ReleaseYear;
-    String description = widget.media.MovieDescription;
     late Future<List<Censor>>? censorship = apiService.getCensors();
 
     Widget getSelectedWidget() {
@@ -31,27 +28,24 @@ class ShowDetailPageState extends State<ShowDetailPage> {
           movie: widget.media,
         );
       } else if (selectedButton == 'CENSORS') {
-        if (censorship != null) {
-          return FutureBuilder<List<Censor>>(
-            future: censorship,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
-              } else if (snapshot.hasError) {
-                return Text('Error: ${snapshot.error}');
-              } else {
-                return CensorWidget(
-                  censorList: snapshot.data!,
-                  media: widget.media,
-                );
-              }
-            },
-          );
-        }
+        return FutureBuilder<List<Censor>>(
+          future: censorship,
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              return Text('Error: ${snapshot.error}');
+            } else {
+              return CensorWidget(
+                censorList: snapshot.data!,
+                media: widget.media,
+              );
+            }
+          },
+        );
       } else {
         return Container();
       }
-      return Container();
     }
 
     return SingleChildScrollView(

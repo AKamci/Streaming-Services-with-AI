@@ -1,33 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/models/censor.dart';
 import 'package:tv_series/src/models/movie.dart';
 
-class CensorWidget extends StatelessWidget {
+class CensorWidget extends StatefulWidget {
   final List<Censor> censorList;
   final Movie media;
 
   CensorWidget({super.key, required this.censorList, required this.media});
 
+  @override
+  _CensorWidgetState createState() => _CensorWidgetState();
+}
+
+class _CensorWidgetState extends State<CensorWidget> {
+  List<bool> isChecked = [];
+
+  @override
+  void initState() {
+    super.initState();
+    isChecked = List<bool>.filled(widget.censorList.length, false);
+  }
+
   List<Widget> _censorWidgetBuilder() {
     List<Widget> censorCard = [];
-    TextButton(
-          onPressed: () {},
-          child: const Text(
-            'Original',
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          ),
-        );
-    for (var i = 0; i < censorList.length; i++) {
+
+    for (var i = 0; i < widget.censorList.length; i++) {
       censorCard.add(
         TextButton(
-          onPressed: () {},
-          child: Text(
-            censorList[i].ClassName,
-            style: TextStyle(
-              color: Colors.white,
-            ),
+          onPressed: () {
+            setState(() {
+              isChecked[i] = !isChecked[i];
+            });
+          },
+          child: Row(
+            children: [
+              Checkbox(
+                value: isChecked[i],
+                onChanged: (bool? value) {
+                  // Update the local state of the dialog
+                  (context as Element).markNeedsBuild();
+                  isChecked[i] = value!;
+                },
+              ),
+              Text(
+                widget.censorList[i].ClassName,
+                style: TextStyle(
+                  color: isChecked[i] ? Colors.green : Colors.white,
+                ),
+              ),
+            ],
           ),
         ),
       );
@@ -38,8 +60,32 @@ class CensorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: _censorWidgetBuilder(),
+      children: [
+        SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: _censorWidgetBuilder(),
+          ),
+        ),
+        Container(
+          width: double.maxFinite,
+          padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
+          color: Colors.black,
+          child: ElevatedButton(
+          onPressed: () {
+            context.goNamed('video');
+          },
+          child: Text(
+            'play video',
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 18,
+            ),
+          ),
+        ),
+        ),
+        
+      ],
     );
   }
 }
