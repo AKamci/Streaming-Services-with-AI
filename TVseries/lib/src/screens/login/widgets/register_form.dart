@@ -10,7 +10,6 @@ class RegisterForm extends StatefulWidget {
 }
 
 class _RegisterFormState extends State<RegisterForm> {
-  
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';
@@ -20,7 +19,7 @@ class _RegisterFormState extends State<RegisterForm> {
       bool registerSuccess =
           await apiService.registerUser(_username, _password);
       if (registerSuccess) {
-        context.go(profile_selection_route);
+        context.go('/');
       } else {
         // Giriş başarısızsa kullanıcıya hata mesajı gösterebilirsiniz
         ScaffoldMessenger.of(context).showSnackBar(

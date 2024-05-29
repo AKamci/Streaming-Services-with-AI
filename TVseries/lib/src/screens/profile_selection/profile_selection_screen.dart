@@ -11,10 +11,8 @@ class ProfileSelectionPage extends StatefulWidget {
 }
 
 class _ProfileSelectionState extends State<ProfileSelectionPage> {
-  
   List<SubUser> subUserList = [];
-  
-  
+
   SubUser subCreateUser = SubUser();
   late Widget subUserWidgetList = subUserWidgetCreate(subCreateUser);
 
@@ -26,8 +24,6 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
     super.initState();
     _fetchCustomerData();
   }
-  
-
 
   Future<void> _fetchCustomerUserData(String idno) async {
     subUserList = await apiService.getSubUsers(int.parse(idno));
@@ -139,7 +135,6 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
         children: [
           Container(
             margin: EdgeInsets.fromLTRB(0, 50, 0, 0),
-            
             child: const Text(
               'Choose a user',
               style: TextStyle(

@@ -42,35 +42,25 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     try {
       Socket socket = await Socket.connect(ip, port);
       List<int> videoData = [];
-
-      // Dosya boyutunu alma ve alım işlemi
-      int fileSize = 0;
-      int receivedBytes = 0;
       String filename = '858';
       socket.add(Uint8List.fromList(filename.codeUnits));
-      socket.listen((Uint8List data) {
-        videoData.addAll(data);
-        receivedBytes += data.length;
-        print(
-            "Alınan Parça Boyutu: ${data.length} bytes, Toplam Alınan: $receivedBytes bytes");
-        if (receivedBytes >= fileSize) {
-          socket.close();
-        }
-      }, onDone: () async {
-        final downloadsDir = await getExternalStorageDirectory();
-        final videoFile = File('${downloadsDir!.path}/video.mp4');
-        await videoFile.writeAsBytes(videoData);
+      await socket
+          .listen((Uint8List data) {
+            videoData.addAll(data);
+          })
+          .asFuture()
+          .then((_) async {
+            socket.close();
 
-        setState(() {
-          _videoFilePath = videoFile.path;
-        });
-        _initializeVideoPlayer();
-      }, onError: (error) {
-        print('Error: $error');
-        setState(() {
-          _isLoading = false;
-        });
-      });
+            final downloadsDir = await getExternalStorageDirectory();
+            final videoFile = File('${downloadsDir!.path}/video.mp4');
+            await videoFile.writeAsBytes(videoData);
+
+            setState(() {
+              _videoFilePath = videoFile.path;
+            });
+            _initializeVideoPlayer();
+          });
     } catch (e) {
       print('Error: $e');
       setState(() {

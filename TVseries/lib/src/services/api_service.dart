@@ -9,6 +9,7 @@ import 'package:tv_series/src/models/user.dart';
 import 'package:logger/logger.dart';
 
 final logger = Logger();
+
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -19,9 +20,10 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 class ApiDataService {
-
-  String serverName = "https://10.0.2.2:7242/api";
-  String securityServerName = "https://10.0.2.2:7089/api";
+  String serverName = "https://192.168.118.18:7242/api";
+  String securityServerName = "https://192.168.118.18:7089/api";
+  //String serverName = "https://10.0.2.2:7242/api";
+  //String securityServerName = "https://10.0.2.2:7089/api";
   //String serverName = "https://192.168.52.18:7242/api";
   //String securityServerName = "https://192.168.52.18:7089/api";
 
@@ -51,8 +53,6 @@ class ApiDataService {
       logger.d('MY_LOG: user is not login');
       return false;
     }
-    
-
   }
 
   Future<bool> isUserSelected() async {
@@ -79,7 +79,7 @@ class ApiDataService {
     );
     if (response.statusCode == 200) {
       final Map<String, dynamic> data = json.decode(response.body);
-      
+
       final fetchedData = fromJson(data['value']);
       logger.d('MY_LOG: fetched data is: $fetchedData');
       return fetchedData;
@@ -324,9 +324,7 @@ class ApiDataService {
       return user;
     } else {}
     return SubUser();
-
   }
-
 
   Future<String> postSubUser(SubUser subUser) async {
     final prefs = await SharedPreferences.getInstance();

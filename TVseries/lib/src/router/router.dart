@@ -45,27 +45,26 @@ final GoRouter router = GoRouter(
     ),
 
     GoRoute(
-        path: '/$profile_selection_route',
-        name: profile_selection_route,
-        builder: (BuildContext context, GoRouterState state) {
-          return _profileSelectionScreen();
-        },
-        routes: [
-          GoRoute(
-            path: user_form_route,
-            name: user_form_route,
-            builder: (BuildContext context, GoRouterState state) {
-              return _formSubUser();
-            },
-          ),
-          GoRoute(
-            path: user_settings_route,
-            name: user_settings_route,
-            builder: (BuildContext context, GoRouterState state) {
-              return _userSettings();
-            },
-          ),
-        ]),
+      path: '/$profile_selection_route',
+      name: profile_selection_route,
+      builder: (BuildContext context, GoRouterState state) {
+        return _profileSelectionScreen();
+      },
+    ),
+    GoRoute(
+      path: '/$user_form_route',
+      name: user_form_route,
+      builder: (BuildContext context, GoRouterState state) {
+        return _formSubUser();
+      },
+    ),
+    GoRoute(
+      path: '/$user_settings_route',
+      name: user_settings_route,
+      builder: (BuildContext context, GoRouterState state) {
+        return _userSettings();
+      },
+    ),
     GoRoute(
       path: '/$shows_route',
       builder: (BuildContext context, GoRouterState state) {
@@ -88,7 +87,6 @@ final GoRouter router = GoRouter(
         return _loginPage();
       },
     ),
-
 
     GoRoute(
       path: '/video',

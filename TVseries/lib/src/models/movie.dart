@@ -4,7 +4,7 @@ class Movie {
   final String MovieDescription;
   final String? ReleaseYear;
   final String? Director;
-  final String? Cast;
+  final List<String?>? Cast;
   final String? Category;
   final int? Views;
 
@@ -35,8 +35,8 @@ class Movie {
       MovieDescription: json['movieDescription'],
       ReleaseYear: json['releaseYear'],
       Director: json['director'],
-      Cast: json['cast'],
-      Category: json['category'],
+      //Cast: json['cast'],
+      //Category: json['category'],
       Views: json['views'],
     );
   }
