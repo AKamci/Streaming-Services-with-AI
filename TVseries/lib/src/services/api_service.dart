@@ -374,4 +374,14 @@ class ApiDataService {
       return false;
     }
   }
+
+
+  Future<void> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('token');
+    await prefs.remove('userMail');
+    customerId = -1;
+    subUserId = -1;
+    logger.d('MY_LOG: User logged out successfully');
+  }
 }

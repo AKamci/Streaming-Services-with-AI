@@ -13,7 +13,6 @@ class ProfileSelectionPage extends StatefulWidget {
 class _ProfileSelectionState extends State<ProfileSelectionPage> {
   List<SubUser> subUserList = [];
 
-
   String titlePage = "eren";
   String idno = "11";
 
@@ -115,20 +114,26 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
     return InkWell(
       onTap: () {
         if (!isSettingSelected) {
-          _submit(user.userId);
+          if (user.pin != 0) {
+            _showPinCodeDialog(user);
+          } else {
+            _submit(user.userId);
+          }
         } else {
-          _submitSettings(user,user.userId);
-          
+          if (user.pin != 0) {
+            _showPinCodeDialog(user);
+          } else {
+            _submitSettings(user, user.userId);
+          }
         }
-        //_submit(user.userId);
       },
       child: Container(
         decoration: BoxDecoration(
           color: Colors.red,
           image: DecorationImage(
             opacity: profileImageOpacity,
-            image: AssetImage('assets/images/simp.png'),
-            //image: AssetImage(user.image ?? 'assets/images/simp.png'),
+            //image: AssetImage('assets/images/simp.png'),
+            image: AssetImage(user.image ?? 'assets/images/simp.png'),
             fit: BoxFit.contain,
           ),
           borderRadius: BorderRadius.circular(10),
@@ -185,14 +190,64 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
     context.go('/$shows_route');
   }
 
-  void _submitSettings(SubUser user,int? userNo) {
+  void _submitSettings(SubUser user, int? userNo) {
     if (userNo != null) {
       apiService.subUserId = userNo;
     } else {
       apiService.subUserId = -1;
     }
-    context.goNamed(user_settings_route,extra: user);
+    context.goNamed(user_settings_route, extra: user);
     //context.go('/$shows_route');
+  }
+
+  void _showPinCodeDialog(SubUser mySubUser) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String pinCode = '';
+        return AlertDialog(
+          title: const Text('Enter PIN Code'),
+          content: TextField(
+            keyboardType: TextInputType.number,
+            obscureText: true,
+            maxLength: 4,
+            onChanged: (value) {
+              pinCode = value;
+            },
+            decoration: const InputDecoration(
+              hintText: 'PIN Code',
+              counterText: '',
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Submit'),
+              onPressed: () {
+                if (pinCode == mySubUser.pin.toString()) {
+                  Navigator.of(context).pop();
+                  if (!isSettingSelected) {
+                    _submit(mySubUser.userId);
+                  } else {
+                    _submitSettings(mySubUser, mySubUser.userId);
+                  }
+                } else {
+                  // Hatalı PIN kodu durumunda yapılacaklar
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Invalid PIN Code')),
+                  );
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override

@@ -145,10 +145,10 @@ Widget _profileSelectionScreen() {
 }
 
 Widget _showsPage() {
-  return const Scaffold(
-    appBar: CustomHeaderBar(),
+  return  Scaffold(
+    appBar: const CustomHeaderBar(),
     drawer: NavBar(),
-    body: ShowsPage(
+    body: const ShowsPage(
       title: 'Films',
     ),
   );
@@ -157,7 +157,7 @@ Widget _showsPage() {
 Widget _showDetailsPage({required Movie data}) {
   return Scaffold(
     appBar: const CustomHeaderBar(),
-    drawer: const NavBar(),
+    drawer:  NavBar(),
     body: ShowDetailPage(media: data),
   );
 }
@@ -165,7 +165,7 @@ Widget _showDetailsPage({required Movie data}) {
 Widget _videoPlay() {
   return Scaffold(
     appBar: const CustomHeaderBar(),
-    drawer: const NavBar(),
+    drawer:  NavBar(),
     body: VideoPlayerScreen(),
   );
 }

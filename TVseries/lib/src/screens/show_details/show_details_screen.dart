@@ -56,9 +56,10 @@ class ShowDetailPageState extends State<ShowDetailPage> {
               onTap: () {}, // Image tapped
               child: SizedBox(
                 width: double.infinity,
+                height: 500,
                 child: Image.asset(
-                  posterUrl,
-
+                  //posterUrl,
+                  'assets/images/boys.jpg',
                   //height: 200,
                   fit: BoxFit.fill,
                 ),

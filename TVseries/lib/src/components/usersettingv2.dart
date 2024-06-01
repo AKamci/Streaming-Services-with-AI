@@ -61,6 +61,65 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
     }
   }
 
+
+
+
+
+  // pin create func
+    void _createPinCodeDialog(SubUser mySubUser) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        String pinCode = '';
+        return AlertDialog(
+          title: const Text('Enter PIN Code'),
+          content: TextField(
+            keyboardType: TextInputType.number,
+            obscureText: true,
+            maxLength: 4,
+            onChanged: (value) {
+              pinCode = value;
+            },
+            decoration: const InputDecoration(
+              hintText: 'PIN Code',
+              counterText: '',
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('Submit'),
+              onPressed: () {
+                mySubUser.pin=int.parse(pinCode);
+                _updateSubUser(mySubUser);
+                
+                //if (pinCode == mySubUser.pin.toString()) {
+                //  if (!isSettingSelected) {
+                //    _submit(mySubUser.userId);
+                //  } else {
+                //    _submitSettings(mySubUser, mySubUser.userId);
+                //  }
+                //} else {
+                //  // Hatalı PIN kodu durumunda yapılacaklar
+                //  ScaffoldMessenger.of(context).showSnackBar(
+                //    const SnackBar(content: Text('Invalid PIN Code')),
+                //  );
+                //}
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -69,8 +128,14 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
           Expanded(
             flex: 1,
             child: Container(
-              //to do
-              //profil image
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  //image: AssetImage('assets/images/simp.png'),
+                  image: AssetImage(widget.selectedUser.image ?? 'assets/images/simp.png'),
+                  fit: BoxFit.contain,
+                ),
+                borderRadius: BorderRadius.circular(10),
+              ),
             ),
           ),
           Expanded(
@@ -121,6 +186,14 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
                         decoration: InputDecoration(labelText: 'Description'),
                       ),
                       SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          _createPinCodeDialog(widget.selectedUser);
+                        },
+                        child: Text('Change PIN'),
+                      ),
+
+
                       ElevatedButton(
                         onPressed: () {
                           if (selectedUserNo != -1) {
