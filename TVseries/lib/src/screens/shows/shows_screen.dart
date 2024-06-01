@@ -43,9 +43,6 @@ class _ShowsPageState extends State<ShowsPage> {
                     height: screenHeight / 3,
                     
                     child: Row(
-
-
-
                       children: [
                         Expanded(
                           child: MediaCard(media: movies[index * 2]),
@@ -58,11 +55,6 @@ class _ShowsPageState extends State<ShowsPage> {
                         else
                           Expanded(child: Container()), // Boş Expanded
                       ],
-
-
-
-
-
 
                     ),
                   );

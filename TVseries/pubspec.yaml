@@ -23,9 +23,7 @@ dependencies:
   video_player: ^2.8.3
   flutter_ffmpeg: ^0.4.0
   path_provider: ^2.0.11
-  flutter_vlc_player: ^7.4.1
   chewie: ^1.8.1
-  #better_player: ^0.0.63
 
 
 dev_dependencies:

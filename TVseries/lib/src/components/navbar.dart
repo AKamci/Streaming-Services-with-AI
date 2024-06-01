@@ -21,15 +21,16 @@ class NavBar extends StatelessWidget {
             ),
           ),
           ListTile(
+            leading: const Icon(Icons.verified_user),
+            title: const Text('Home'),
+            onTap: () => {context.go('/$shows_route')},
+          ),
+          ListTile(
             leading: const Icon(Icons.input),
             title: const Text('Favorites'),
             onTap: () => {context.go('/shows')},
           ),
-          //ListTile(
-          //  leading: const Icon(Icons.verified_user),
-          //  title: const Text('Profile'),
-          //  onTap: () => {Navigator.of(context).pop()},
-          //),
+          
           ListTile(
             leading: const Icon(Icons.settings),
             title: const Text('User add'),

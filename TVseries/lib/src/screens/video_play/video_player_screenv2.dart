@@ -36,7 +36,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 
   Future<void> _fetchVideoFromTCP() async {
-    final String ip = '192.168.118.18';
+    final String ip = '192.168.1.39';
     final int port = 9999;
 
     try {
@@ -52,7 +52,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         videoData.addAll(data);
         receivedBytes += data.length;
         print(
-            "Alınan Parça Boyutu: ${data.length} bytes, Toplam Alınan: $receivedBytes bytes");
+            "Alinan Parça Boyutu: ${data.length} bytes, Toplam Alinan: $receivedBytes bytes");
         if (receivedBytes >= fileSize) {
           socket.close();
         }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class CustomHeaderBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomHeaderBar({
+class HeaderBar extends StatelessWidget implements PreferredSizeWidget {
+  const HeaderBar({
     Key? key,
   }) : super(key: key);
   
@@ -10,13 +10,7 @@ class CustomHeaderBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: const Text('TVseries'),
       automaticallyImplyLeading: false,
-      leading: IconButton(
-        icon: const Icon(Icons.menu),
-        tooltip: 'Side Menu',
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-        },
-      ),
+      
       /*
       actions: <Widget>[
         IconButton(

@@ -20,10 +20,10 @@ class MyHttpOverrides extends HttpOverrides {
 }
 
 class ApiDataService {
-  String serverName = "https://192.168.118.18:7242/api";
-  String securityServerName = "https://192.168.118.18:7089/api";
-  //String serverName = "https://10.0.2.2:7242/api";
-  //String securityServerName = "https://10.0.2.2:7089/api";
+  //String serverName = "https://192.168.1.39:7242/api";
+  //String securityServerName = "https://192.168.1.39:7089/api";
+  String serverName = "https://10.0.2.2:7242/api";
+  String securityServerName = "https://10.0.2.2:7089/api";
   //String serverName = "https://192.168.52.18:7242/api";
   //String securityServerName = "https://192.168.52.18:7089/api";
 
@@ -118,10 +118,12 @@ class ApiDataService {
     final response = await http.post(
       Uri.parse('$securityServerName/Register'),
       headers: {'Content-Type': 'application/json'},
-      body: json.encode({
-        'eMail': email,
-        'password': password,
-      }),
+      body: json.encode(
+        {
+          'eMail': email,
+          'password': password,
+        },
+      ),
     );
 
     if (response.statusCode == 200) {

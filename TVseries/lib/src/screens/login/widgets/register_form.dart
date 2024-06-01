@@ -13,19 +13,25 @@ class _RegisterFormState extends State<RegisterForm> {
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';
-  Future<void> _submit() async {
+  
+  void _submit() async {
+    ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('We are trying to register. Please wait.')),
+    );
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       bool registerSuccess =
           await apiService.registerUser(_username, _password);
       if (registerSuccess) {
-        context.go('/');
+        context.goNamed(initialLocation,extra: "Register Success");
       } else {
         // Giriş başarısızsa kullanıcıya hata mesajı gösterebilirsiniz
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text('Login failed. Please try again.')),
         );
+        
       }
+      
     }
   }
 
@@ -49,6 +55,10 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
+              child: Text('bak bu ip adresi ${apiService.serverName}') 
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
@@ -60,7 +70,9 @@ class _RegisterFormState extends State<RegisterForm> {
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 16.0),
               child: ElevatedButton(
-                onPressed: _submit,
+                onPressed: (){
+                  _submit();
+                },
                 child: Text('Register'),
               ),
             ),

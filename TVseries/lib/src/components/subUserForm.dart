@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/subUserSub.dart';
 
@@ -28,14 +29,12 @@ class _SubUserFormState extends State<SubUserForm> {
         title: _titleController.text,
         description: _descriptionController.text,
       );
+      
       String msj = await apiService.postSubUser(subCreateUser);
-      print(msj);
+      context.goNamed(initialLocation,extra: msj);
+      
       // Here, you can handle the subUser object as needed,
       // such as sending it to a server or saving it locally
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('SubUser saved successfully')),
-      );
     }
   }
 

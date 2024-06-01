@@ -9,6 +9,6 @@ const String user_settings_route = 'userSettings';
 const String shows_route = 'shows';
 const String profile_selection_route = 'subuser';
 const String details_route = 'showDetails';
-
+const String initialLocation = 'loadScreen';
 
 

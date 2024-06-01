@@ -17,6 +17,9 @@ class _LoginFormState extends State<LoginForm> {
   String _password = '';
 
   void _submit() async {
+     ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('We are trying to log in. Please wait.')),
+    );
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
       bool loginSuccess = await apiService.loginUser(_username, _password);
