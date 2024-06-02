@@ -40,7 +40,7 @@ class NavBar extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage(selectedUser.image ?? 'assets/images/default_user.png'),
+                              image: AssetImage('assets/images/${selectedUser.image}'),
                             ),
                           ),
                         ),

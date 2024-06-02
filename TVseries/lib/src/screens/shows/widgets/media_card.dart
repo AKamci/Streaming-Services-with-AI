@@ -24,7 +24,7 @@ class MediaCard extends StatelessWidget {
               splashColor: Colors.white10, // Splash color over image
               child: Ink.image(
                 fit: BoxFit.cover, // Fixes border issues
-                image: AssetImage(media.MoviePoster),
+                image: AssetImage('assets/images/${media.MoviePoster}'),
               ),
             ),
           ),

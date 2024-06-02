@@ -131,7 +131,7 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
               decoration: BoxDecoration(
                 image: DecorationImage(
                   //image: AssetImage('assets/images/simp.png'),
-                  image: AssetImage(widget.selectedUser.image ?? 'assets/images/simp.png'),
+                  image: AssetImage('assets/images/${widget.selectedUser.image}' ),
                   fit: BoxFit.contain,
                 ),
                 borderRadius: BorderRadius.circular(10),

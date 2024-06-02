@@ -59,7 +59,7 @@ class ShowDetailPageState extends State<ShowDetailPage> {
                 height: 500,
                 child: Image.asset(
                   //posterUrl,
-                  'assets/images/boys.jpg',
+                  'assets/images/$posterUrl',
                   //height: 200,
                   fit: BoxFit.fill,
                 ),

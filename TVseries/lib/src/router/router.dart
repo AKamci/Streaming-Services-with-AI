@@ -145,7 +145,7 @@ Widget _profileSelectionScreen() {
 }
 
 Widget _showsPage() {
-  return  Scaffold(
+  return Scaffold(
     appBar: const CustomHeaderBar(),
     drawer: NavBar(),
     body: const ShowsPage(
