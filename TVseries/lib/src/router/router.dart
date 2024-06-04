@@ -7,6 +7,7 @@ import 'package:tv_series/src/components/navbar.dart';
 import 'package:tv_series/src/components/subUserForm.dart';
 import 'package:tv_series/src/components/usersettingv2.dart';
 import 'package:tv_series/src/constants/routes.dart';
+import 'package:tv_series/src/models/censor.dart';
 import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/models/subUserSub.dart';
 import 'package:tv_series/src/screens/initializer/load_screen.dart';
@@ -107,7 +108,7 @@ final GoRouter router = GoRouter(
       path: '/video',
       name: 'video',
       builder: (BuildContext context, GoRouterState state) {
-        return _videoPlay();
+        return _videoPlay(data: state.extra as List<Censor>);
       },
     ),
     GoRoute(
@@ -172,11 +173,11 @@ Widget _showDetailsPage({required Movie data}) {
   );
 }
 
-Widget _videoPlay() {
+Widget _videoPlay({required List<Censor> data}) {
   return Scaffold(
     appBar: const CustomHeaderBar(),
     drawer: NavBar(),
-    body: VideoPlayerScreen(),
+    body: VideoPlayerScreen(selectedCensors: data),
   );
 }
 

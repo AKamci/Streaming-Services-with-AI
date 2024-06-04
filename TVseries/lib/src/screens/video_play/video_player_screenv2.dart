@@ -1,13 +1,17 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
+import 'package:tv_series/src/models/censor.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import 'package:path_provider/path_provider.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
+  const VideoPlayerScreen({super.key, required this.selectedCensors});
+
   @override
   _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
+  final List<Censor> selectedCensors;
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {

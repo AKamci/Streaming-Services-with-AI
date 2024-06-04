@@ -22,6 +22,22 @@ class _CensorWidgetState extends State<CensorWidget> {
     isChecked = List<bool>.filled(widget.censorList.length, false);
   }
 
+  List<Censor> _selectedCensors(){
+    List<Censor> selectCensorList=[];
+    for (var i = 0; i < isChecked.length; i++) {
+      if (isChecked[i]==true) {
+        selectCensorList.add(widget.censorList[i]);
+      }
+    }
+    return selectCensorList;
+  }
+
+  void _playVideo(){
+    List<Censor> censorListSelected=_selectedCensors();
+    context.goNamed('video',extra: censorListSelected);
+  }
+
+
   List<Widget> _censorWidgetBuilder() {
     List<Widget> censorCard = [];
 
@@ -73,7 +89,7 @@ class _CensorWidgetState extends State<CensorWidget> {
           color: Colors.black,
           child: ElevatedButton(
           onPressed: () {
-            context.goNamed('video');
+            _playVideo();
           },
           child: Text(
             'play video',
