@@ -10,5 +10,6 @@ const String shows_route = 'shows';
 const String profile_selection_route = 'subuser';
 const String details_route = 'showDetails';
 const String initialLocation = 'loadScreen';
+const String censor_selection_route = 'censorSelection';
 
 

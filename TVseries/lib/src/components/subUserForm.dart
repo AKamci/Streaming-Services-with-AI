@@ -16,7 +16,7 @@ class _SubUserFormState extends State<SubUserForm> {
   final TextEditingController _imageController = TextEditingController();
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  final TextEditingController _pinController = TextEditingController();
+  //final TextEditingController _pinController = TextEditingController();
   final custId = apiService.customerId;
 
   Future<void> _saveSubUser() async {

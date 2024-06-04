@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tv_series/src/components/censor_selection_page.dart';
 import 'package:tv_series/src/components/header.dart';
 import 'package:tv_series/src/components/header_bar.dart';
 import 'package:tv_series/src/components/navbar.dart';
@@ -55,12 +56,20 @@ final GoRouter router = GoRouter(
       },
       routes: [
         GoRoute(
-          path: '$user_settings_route',
-          name: user_settings_route,
-          builder: (BuildContext context, GoRouterState state) {
-            return _userSettings(data: state.extra as SubUser);
-          },
-        ),
+            path: '$user_settings_route',
+            name: user_settings_route,
+            builder: (BuildContext context, GoRouterState state) {
+              return _userSettings(data: state.extra as SubUser);
+            },
+            routes: [
+              GoRoute(
+                path: '$censor_selection_route',
+                name: censor_selection_route,
+                builder: (BuildContext context, GoRouterState state) {
+                  return _userCensorSelection(data: state.extra as SubUser);
+                },
+              ),
+            ]),
         GoRoute(
           path: '$user_form_route',
           name: user_form_route,
@@ -114,7 +123,6 @@ final GoRouter router = GoRouter(
 Widget _loginPage() {
   return const Scaffold(
     appBar: HeaderBar(),
-    
     body: LoginPage(),
   );
 }
@@ -122,24 +130,26 @@ Widget _loginPage() {
 Widget _formSubUser() {
   return Scaffold(
     appBar: HeaderBar(),
-    
     body: SubUserForm(),
   );
 }
 
-Widget _userSettings({required SubUser data} ) {
+Widget _userSettings({required SubUser data}) {
   return Scaffold(
     resizeToAvoidBottomInset: false,
     appBar: HeaderBar(),
-    
     body: SubUserSettingsPage(selectedUser: data),
   );
+}
+
+
+Widget _userCensorSelection({required SubUser data}) {
+  return CensorSelectionPage(selectedUser: data);
 }
 
 Widget _profileSelectionScreen() {
   return const Scaffold(
     appBar: HeaderBar(),
-    
     body: ProfileSelectionPage(),
   );
 }
@@ -157,7 +167,7 @@ Widget _showsPage() {
 Widget _showDetailsPage({required Movie data}) {
   return Scaffold(
     appBar: const CustomHeaderBar(),
-    drawer:  NavBar(),
+    drawer: NavBar(),
     body: ShowDetailPage(media: data),
   );
 }
@@ -165,7 +175,7 @@ Widget _showDetailsPage({required Movie data}) {
 Widget _videoPlay() {
   return Scaffold(
     appBar: const CustomHeaderBar(),
-    drawer:  NavBar(),
+    drawer: NavBar(),
     body: VideoPlayerScreen(),
   );
 }

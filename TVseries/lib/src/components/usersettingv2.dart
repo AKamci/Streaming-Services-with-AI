@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/constants/routes.dart';
+import 'package:tv_series/src/models/censor.dart';
 import 'package:tv_series/src/models/subUserSub.dart';
+import 'censor_selection_page.dart'; // Import the new CensorSelectionPage
 
 class SubUserSettingsPage extends StatefulWidget {
-  const SubUserSettingsPage({super.key, required this.selectedUser});
+  SubUserSettingsPage({super.key, required this.selectedUser});
   final SubUser selectedUser;
+
   @override
   State<SubUserSettingsPage> createState() => _SubUserSettingsPageState();
 }
@@ -13,11 +16,11 @@ class SubUserSettingsPage extends StatefulWidget {
 class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
   int selectedUserNo = apiService.subUserId;
   final _formKey = GlobalKey<FormState>();
-  TextEditingController nameController = TextEditingController(text: "");
-  TextEditingController surnameController = TextEditingController(text: "");
-  TextEditingController imageController = TextEditingController(text: "");
-  TextEditingController titleController = TextEditingController(text: "");
-  TextEditingController descriptionController = TextEditingController(text: "");
+  late TextEditingController nameController;
+  late TextEditingController surnameController;
+  late TextEditingController imageController;
+  late TextEditingController titleController;
+  late TextEditingController descriptionController;
 
   @override
   void initState() {
@@ -32,7 +35,16 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
         TextEditingController(text: widget.selectedUser.description);
   }
 
-  //user form functions
+  @override
+  void dispose() {
+    nameController.dispose();
+    surnameController.dispose();
+    imageController.dispose();
+    titleController.dispose();
+    descriptionController.dispose();
+    super.dispose();
+  }
+
   Future<void> _updateSubUser(SubUser subUser) async {
     if (_formKey.currentState!.validate()) {
       SubUser updatedSubUser = SubUser(
@@ -45,6 +57,7 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
         description: descriptionController.text,
         pin: subUser.pin,
         lastWatchedId: subUser.lastWatchedId,
+        censors: subUser.censors,
       );
 
       bool success = await apiService.updateSubUser(updatedSubUser);
@@ -61,12 +74,11 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
     }
   }
 
+  void _navigateToCensorSelection()  {
+    context.goNamed(censor_selection_route, extra: widget.selectedUser);
+  }
 
-
-
-
-  // pin create func
-    void _createPinCodeDialog(SubUser mySubUser) {
+  void _createPinCodeDialog(SubUser mySubUser) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -95,21 +107,9 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
             TextButton(
               child: const Text('Submit'),
               onPressed: () {
-                mySubUser.pin=int.parse(pinCode);
+                mySubUser.pin = int.parse(pinCode);
                 _updateSubUser(mySubUser);
-                
-                //if (pinCode == mySubUser.pin.toString()) {
-                //  if (!isSettingSelected) {
-                //    _submit(mySubUser.userId);
-                //  } else {
-                //    _submitSettings(mySubUser, mySubUser.userId);
-                //  }
-                //} else {
-                //  // Hatalı PIN kodu durumunda yapılacaklar
-                //  ScaffoldMessenger.of(context).showSnackBar(
-                //    const SnackBar(content: Text('Invalid PIN Code')),
-                //  );
-                //}
+                Navigator.of(context).pop();
               },
             ),
           ],
@@ -117,8 +117,6 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
       },
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -130,8 +128,8 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  //image: AssetImage('assets/images/simp.png'),
-                  image: AssetImage('assets/images/${widget.selectedUser.image}' ),
+                  image: AssetImage(
+                      'assets/images/${widget.selectedUser.image}'),
                   fit: BoxFit.contain,
                 ),
                 borderRadius: BorderRadius.circular(10),
@@ -169,7 +167,8 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
                       ),
                       TextFormField(
                         controller: imageController,
-                        decoration: InputDecoration(labelText: 'Image URL'),
+                        decoration:
+                            InputDecoration(labelText: 'Image URL'),
                       ),
                       TextFormField(
                         controller: titleController,
@@ -183,28 +182,35 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
                       ),
                       TextFormField(
                         controller: descriptionController,
-                        decoration: InputDecoration(labelText: 'Description'),
+                        decoration:
+                            InputDecoration(labelText: 'Description'),
                       ),
                       SizedBox(height: 20),
+                      ElevatedButton(
+                        onPressed: () {
+                          _navigateToCensorSelection();
+                        },
+                        child: Text('Censor Preference'),
+                      ),
                       ElevatedButton(
                         onPressed: () {
                           _createPinCodeDialog(widget.selectedUser);
                         },
                         child: Text('Change PIN'),
                       ),
-
-
                       ElevatedButton(
                         onPressed: () {
                           if (selectedUserNo != -1) {
                             _updateSubUser(widget.selectedUser);
                           } else {
-                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(SnackBar(
                               content: Text('Please select a User.'),
                             ));
                           }
                         },
-                        child: Text('Update ${widget.selectedUser.userId}'),
+                        child:
+                            Text('Update ${widget.selectedUser.userId}'),
                       ),
                     ],
                   ),
