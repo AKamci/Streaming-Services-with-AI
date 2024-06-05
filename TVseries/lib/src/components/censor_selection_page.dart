@@ -23,48 +23,49 @@ class _CensorSelectionPageState extends State<CensorSelectionPage> {
     censorList = apiService.getCensors();
   }
 
-
-
-
-
-    Future<void> _updateSubUser(SubUser subUser,List<Censor> censorsList) async {
-      List<Censor> abiyer = await censorList;
-      SubUser updatedSubUser = SubUser(
-        userId: subUser.userId,
-        customerId: subUser.customerId,
-        name: subUser.name,
-        surname: subUser.surname,
-        image: subUser.image,
-        title: subUser.title,
-        description: subUser.description,
-        pin: subUser.pin,
-        lastWatchedId: subUser.lastWatchedId,
-        censors: abiyer,
-      );
-      print('bak bu yolladigim censorlist aaa:: ${abiyer[0].ClassName}');
-      bool success = await apiService.updateSubUser(updatedSubUser);
-
-      if (success) {
-        context.goNamed(initialLocation, extra: "Update Success");
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text('Failed to update SubUser.'),
-          ),
-        );
-      }
+  Future<void> _updateSubUser(SubUser subUser, List<Censor> censorsList) async {
+    List<Censor> preferencedCensors = censorsList;
+    List<int> censorListId = [];
+    for (var i = 0; i < preferencedCensors.length; i++) {
+      censorListId.add(preferencedCensors[i].ClassId);
     }
-  
+    print('censorlistesiiiii :::: $censorListId');
+    SubUser updatedSubUser = SubUser(
+      userId: subUser.userId,
+      customerId: subUser.customerId,
+      name: subUser.name,
+      surname: subUser.surname,
+      image: subUser.image,
+      title: subUser.title,
+      description: subUser.description,
+      pin: subUser.pin,
+      lastWatchedId: subUser.lastWatchedId,
+      censors: censorListId,
+    );
+    print(
+        'bak bu yolladigim censorlist aaa:: ${preferencedCensors[0].ClassName}');
+    bool success = await apiService.updateSubUser(updatedSubUser);
+
+    if (success) {
+      context.goNamed(initialLocation, extra: "Update Success");
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Failed to update SubUser.'),
+        ),
+      );
+    }
+  }
+
   //_updateCensorList(){
   //  List<Censor> censorArr=[];
   //  for (var i = 0; i < isChecked.length; i++) {
   //    if (isChecked[i]==true) {
   //      censorArr.add(censorList.)
-  //      
+  //
   //    }
   //  }
   //}
-
 
   List<Widget> _censorWidgetBuilder(List<Censor> censors) {
     return List.generate(censors.length, (i) {
@@ -127,7 +128,8 @@ class _CensorSelectionPageState extends State<CensorSelectionPage> {
               actions: [
                 TextButton(
                   onPressed: () {
-                    _updateSubUser( widget.selectedUser,selectedCensors(snapshot.data!));
+                    _updateSubUser(
+                        widget.selectedUser, selectedCensors(snapshot.data!));
                   },
                   child: Text('Save', style: TextStyle(color: Colors.white)),
                 ),

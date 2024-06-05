@@ -15,7 +15,7 @@ class SubUser {
   List<Movie>? movies;
   List<Movie>? favoriteMovies;
   List<FinishedMovie>? finishedMovies;
-  List<Censor>? censors;
+  List<int>? censors;
 
   SubUser({
     this.userId,
@@ -57,9 +57,7 @@ class SubUser {
       finishedMovies: (json['finishedMovies'] as List?)
           ?.map((item) => FinishedMovie.fromJson(item))
           .toList(),
-      censors: (json['censors'] as List?)
-          ?.map((item) => Censor.fromJson(item))
-          .toList(),
+      censors: List<int>.from(json['censorsId'] ?? []),
     );
   }
 
@@ -84,12 +82,11 @@ class SubUser {
       'title': title,
       'description': description,
       'pin': pin,
-      'lastWatchedId': lastWatchedId 
+      'lastWatchedId': lastWatchedId,
+      'censorsId': censors
     };
   }
 }
-
-
 
 class FinishedMovie {
   final String movieName;

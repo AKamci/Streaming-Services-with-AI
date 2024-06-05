@@ -114,13 +114,13 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
     return InkWell(
       onTap: () {
         if (!isSettingSelected) {
-          if (user.pin != 0) {
+          if (user.pin != null) {
             _showPinCodeDialog(user);
           } else {
             _submit(user.userId);
           }
         } else {
-          if (user.pin != 0) {
+          if (user.pin != null) {
             _showPinCodeDialog(user);
           } else {
             _submitSettings(user, user.userId);

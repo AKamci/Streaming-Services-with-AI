@@ -26,6 +26,19 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     _checkForExistingVideo();
   }
 
+  String censorClassIdList() {
+    String myIdStrList = "";
+    for (var i = 0; i < widget.selectedCensors.length; i++) {
+      if (i == 0) {
+        myIdStrList = '${widget.selectedCensors[i].ClassId}';
+      } else {
+        myIdStrList = '$myIdStrList,${widget.selectedCensors[i].ClassId}';
+      }
+    }
+    print('bak buuuu benim id liste boluuu $myIdStrList');
+    return myIdStrList;
+  }
+
   Future<void> _checkForExistingVideo() async {
     final downloadsDir = await getExternalStorageDirectory();
 
@@ -40,7 +53,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 
   Future<void> _fetchVideoFromTCP() async {
-    final String ip = '192.168.1.39';
+    final String ip = '192.168.161.18';
     final int port = 9999;
 
     try {
@@ -51,7 +64,13 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       int fileSize = 0;
       int receivedBytes = 0;
       String filename = '858';
+
+      String censorList = censorClassIdList();
+
+      // Filenames ve censorList'i socket üzerinden gönderme
       socket.add(Uint8List.fromList(filename.codeUnits));
+      socket.add(Uint8List.fromList(censorList.codeUnits));
+
       socket.listen((Uint8List data) {
         videoData.addAll(data);
         receivedBytes += data.length;

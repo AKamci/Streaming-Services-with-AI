@@ -22,10 +22,10 @@ class MyHttpOverrides extends HttpOverrides {
 class ApiDataService {
   //String serverName = "https://192.168.1.39:7242/api";
   //String securityServerName = "https://192.168.1.39:7089/api";
-  String serverName = "https://10.0.2.2:7242/api";
-  String securityServerName = "https://10.0.2.2:7089/api";
-  //String serverName = "https://192.168.52.18:7242/api";
-  //String securityServerName = "https://192.168.52.18:7089/api";
+  //String serverName = "https://10.0.2.2:7242/api";
+  //String securityServerName = "https://10.0.2.2:7089/api";
+  String serverName = "https://192.168.161.18:7242/api";
+  String securityServerName = "https://192.168.161.18:7089/api";
 
   int customerId = -1;
   int subUserId = -1;
@@ -374,7 +374,6 @@ class ApiDataService {
       return false;
     }
   }
-
 
   Future<void> logout() async {
     final prefs = await SharedPreferences.getInstance();

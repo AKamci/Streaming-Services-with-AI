@@ -16,11 +16,10 @@ class ShowDetailPage extends StatefulWidget {
 
 class ShowDetailPageState extends State<ShowDetailPage> {
   String selectedButton = 'OVERVIEW';
-
+  late Future<List<Censor>>? censorship = apiService.getCensors();
   @override
   Widget build(BuildContext context) {
     String posterUrl = widget.media.MoviePoster;
-    late Future<List<Censor>>? censorship = apiService.getCensors();
 
     Widget getSelectedWidget() {
       if (selectedButton == 'OVERVIEW') {

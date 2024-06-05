@@ -22,21 +22,22 @@ class _CensorWidgetState extends State<CensorWidget> {
     isChecked = List<bool>.filled(widget.censorList.length, false);
   }
 
-  List<Censor> _selectedCensors(){
-    List<Censor> selectCensorList=[];
+  void censorSelectPreference() {}
+
+  List<Censor> _selectedCensors() {
+    List<Censor> selectCensorList = [];
     for (var i = 0; i < isChecked.length; i++) {
-      if (isChecked[i]==true) {
+      if (isChecked[i] == true) {
         selectCensorList.add(widget.censorList[i]);
       }
     }
     return selectCensorList;
   }
 
-  void _playVideo(){
-    List<Censor> censorListSelected=_selectedCensors();
-    context.goNamed('video',extra: censorListSelected);
+  void _playVideo() {
+    List<Censor> censorListSelected = _selectedCensors();
+    context.goNamed('video', extra: censorListSelected);
   }
-
 
   List<Widget> _censorWidgetBuilder() {
     List<Widget> censorCard = [];
@@ -88,19 +89,18 @@ class _CensorWidgetState extends State<CensorWidget> {
           padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
           color: Colors.black,
           child: ElevatedButton(
-          onPressed: () {
-            _playVideo();
-          },
-          child: Text(
-            'play video',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
+            onPressed: () {
+              _playVideo();
+            },
+            child: Text(
+              'play video',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 18,
+              ),
             ),
           ),
         ),
-        ),
-        
       ],
     );
   }
