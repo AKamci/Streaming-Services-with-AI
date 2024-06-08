@@ -1,31 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/movie.dart';
-import 'package:tv_series/src/screens/shows/widgets/media_card.dart';
+import 'package:tv_series/src/screens/shows_favorite/widgets/media_card.dart';
 
-class ShowsPage extends StatefulWidget {
+class FavoriteScreen extends StatefulWidget {
   // title = TVshows, Films
   final String title;
-  const ShowsPage({super.key, required this.title});
+  const FavoriteScreen({super.key, required this.title});
 
   @override
-  State<ShowsPage> createState() => _ShowsPageState();
+  State<FavoriteScreen> createState() => _FavoriteScreenState();
 }
 
-class _ShowsPageState extends State<ShowsPage> {
-  late Future<List<Movie>> moviesFuture;
+class _FavoriteScreenState extends State<FavoriteScreen> {
+  late Future<List<Movie?>> moviesFuture;
 
   @override
   void initState() {
     super.initState();
-    moviesFuture = apiService.getMovies();
+    moviesFuture = apiService.getFavorites(apiService.subUserId);
   }
 
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.of(context).size.height;
 
-    return FutureBuilder<List<Movie>>(
+    return FutureBuilder<List<Movie?>>(
       future: moviesFuture,
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -44,11 +44,11 @@ class _ShowsPageState extends State<ShowsPage> {
                   child: Row(
                     children: [
                       Expanded(
-                        child: MediaCard(media: movies[index * 2]),
+                        child: MediaCard(media: movies[index * 2]!),
                       ),
                       if (index * 2 + 1 < movies.length)
                         Expanded(
-                          child: MediaCard(media: movies[index * 2 + 1]),
+                          child: MediaCard(media: movies[index * 2 + 1]!),
                         )
                       else
                         Expanded(child: Container()), // Boş Expanded

@@ -24,8 +24,8 @@ class ApiDataService {
   //String securityServerName = "https://192.168.1.39:7089/api";
   //String serverName = "https://10.0.2.2:7242/api";
   //String securityServerName = "https://10.0.2.2:7089/api";
-  String serverName = "https://192.168.161.18:7242/api";
-  String securityServerName = "https://192.168.161.18:7089/api";
+  String serverName = "https://192.168.68.102:7242/api";
+  String securityServerName = "https://192.168.68.108:7089/api";
 
   int customerId = -1;
   int subUserId = -1;
@@ -382,5 +382,69 @@ class ApiDataService {
     customerId = -1;
     subUserId = -1;
     logger.d('MY_LOG: User logged out successfully');
+  }
+
+  // Favorite Operations
+  Future<List<Movie?>> getFavorites(int subUserId) async {
+    final userMedia = await _fetchProtectedData<SubUser>(
+      '$serverName/Users/GetUserWithFavoriteMovies?id=$subUserId',
+      (data) => SubUser.fromJson(data),
+    );
+    List<Movie?> favoriteMovieList = [];
+    if (userMedia != null) {
+      if (userMedia.favoriteMovies != null) {
+        for (var i = 0; i < userMedia.favoriteMovies!.length; i++) {
+          favoriteMovieList
+              .add(await getMovieById(userMedia.favoriteMovies![i].movieId));
+        }
+      }
+    } else {
+      logger.d('MY_LOG: this is empty data');
+      return List.empty();
+    }
+    logger.d('MY_LOG: this is favorite movies : $favoriteMovieList');
+    return favoriteMovieList;
+  }
+
+  Future<bool> updateFavorites(SubUser subUser, Movie movie) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final url = '$serverName/FavoriteMovies';
+    final response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(subUser.toJsonUpdate()),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      logger.d('MY_LOG: Failed to update subuser: ${response.statusCode}');
+      return false;
+    }
+  }
+
+  Future<bool> deleteFavorites(SubUser subUser) async {
+    final prefs = await SharedPreferences.getInstance();
+    final token = prefs.getString('token');
+    final url = '$serverName/Users';
+    final response = await http.put(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token',
+      },
+      body: jsonEncode(subUser.toJsonUpdate()),
+    );
+
+    if (response.statusCode == 200) {
+      return true;
+    } else {
+      logger.d('MY_LOG: Failed to update subuser: ${response.statusCode}');
+      return false;
+    }
   }
 }

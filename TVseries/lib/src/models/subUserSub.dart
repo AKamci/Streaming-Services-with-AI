@@ -1,5 +1,6 @@
 import 'package:tv_series/src/models/censor.dart';
 import 'package:tv_series/src/models/movie.dart';
+import 'package:tv_series/src/models/favoriteMovie.dart';
 
 class SubUser {
   int? customerId;
@@ -13,7 +14,7 @@ class SubUser {
   int? lastWatchedId;
   Movie? lastWatched;
   List<Movie>? movies;
-  List<Movie>? favoriteMovies;
+  List<favoriteMovie>? favoriteMovies;
   List<FinishedMovie>? finishedMovies;
   List<int>? censors;
 
@@ -52,7 +53,7 @@ class SubUser {
           ?.map((item) => Movie.fromJson(item))
           .toList(),
       favoriteMovies: (json['favoriteMovies'] as List?)
-          ?.map((item) => Movie.fromJson(item))
+          ?.map((item) => favoriteMovie.fromJson(item))
           .toList(),
       finishedMovies: (json['finishedMovies'] as List?)
           ?.map((item) => FinishedMovie.fromJson(item))
@@ -84,6 +85,14 @@ class SubUser {
       'pin': pin,
       'lastWatchedId': lastWatchedId,
       'censorsId': censors
+    };
+  }
+
+  Map<String, dynamic> fromJsonWithFav() {
+    return {
+      'id': userId,
+      'customerId': customerId,
+      'name': name,
     };
   }
 }

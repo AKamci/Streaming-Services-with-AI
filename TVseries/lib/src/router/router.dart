@@ -15,10 +15,11 @@ import 'package:tv_series/src/screens/login/login_screen.dart';
 import 'package:tv_series/src/screens/profile_selection/profile_selection_screen.dart';
 import 'package:tv_series/src/screens/show_details/show_details_screen.dart';
 import 'package:tv_series/src/screens/shows/shows_screen.dart';
+import 'package:tv_series/src/screens/shows_favorite/fav_shows_screen.dart';
 import 'package:tv_series/src/screens/video_play/video_player_screenv2.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: '/',
+  initialLocation: '/$favorite_movies_route',
   routes: [
     GoRoute(
       path: '/',
@@ -96,6 +97,22 @@ final GoRouter router = GoRouter(
         ),
       ],
     ),
+    GoRoute(
+      path: '/$favorite_movies_route',
+      name: favorite_movies_route,
+      builder: (BuildContext context, GoRouterState state) {
+        return _favoritePage();
+      },
+      routes: [
+        GoRoute(
+          path: details_route,
+          name: 'fav_details_routes',
+          builder: (context, state) {
+            return _showDetailsPage(data: state.extra as Movie);
+          },
+        ),
+      ],
+    ),
 
     GoRoute(
       path: login_route,
@@ -143,7 +160,6 @@ Widget _userSettings({required SubUser data}) {
   );
 }
 
-
 Widget _userCensorSelection({required SubUser data}) {
   return CensorSelectionPage(selectedUser: data);
 }
@@ -185,6 +201,16 @@ Widget _loadScreen({required String message}) {
   return Scaffold(
     body: LoadingScreen(
       message: message,
+    ),
+  );
+}
+
+Widget _favoritePage() {
+  return Scaffold(
+    appBar: const CustomHeaderBar(),
+    drawer: NavBar(),
+    body: FavoriteScreen(
+      title: 'Films',
     ),
   );
 }

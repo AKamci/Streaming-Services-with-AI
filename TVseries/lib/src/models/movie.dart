@@ -1,4 +1,5 @@
 class Movie {
+  final int? id;
   final String MovieName;
   final String MoviePoster;
   final String MovieDescription;
@@ -17,6 +18,7 @@ class Movie {
     this.Cast,
     this.Category,
     this.Views,
+    this.id,
   });
 
   //     var myvalue = json['value'];
@@ -30,6 +32,7 @@ class Movie {
   //Movie({required this.MovieName, required this.MoviePoster, required this.MovieDescription, required this.ReleaseYear, required this.Director, required this.Cast, required this.Category, required this.Views});
   factory Movie.fromJson(Map<String, dynamic> json) {
     return Movie(
+      id: json['id'],
       MovieName: json['movieName'],
       MoviePoster: json['moviePoster'],
       MovieDescription: json['movieDescription'],
@@ -40,6 +43,7 @@ class Movie {
       Views: json['views'],
     );
   }
+
   Map<String, dynamic> toJson() {
     return {
       'movieName': MovieName,

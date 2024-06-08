@@ -1,6 +1,5 @@
 import 'package:tv_series/src/services/api_service.dart';
 
-
 ApiDataService apiService = ApiDataService();
 const String home_route = 'home';
 const String login_route = '/login';
@@ -11,5 +10,4 @@ const String profile_selection_route = 'subuser';
 const String details_route = 'showDetails';
 const String initialLocation = 'loadScreen';
 const String censor_selection_route = 'censorSelection';
-
-
+const String favorite_movies_route = 'favoriteMovies';

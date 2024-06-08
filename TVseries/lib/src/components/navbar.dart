@@ -6,7 +6,6 @@ import 'package:tv_series/src/models/subUserSub.dart';
 class NavBar extends StatelessWidget {
   NavBar({super.key});
 
-
   Future<SubUser> userSelection() async {
     return await apiService.getSubUser(apiService.subUserId);
   }
@@ -40,13 +39,14 @@ class NavBar extends StatelessWidget {
                             shape: BoxShape.circle,
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage('assets/images/${selectedUser.image}'),
+                              image: AssetImage(
+                                  'assets/images/${selectedUser.image}'),
                             ),
                           ),
                         ),
                       ),
-                       Text(
-                        selectedUser.title??'User',
+                      Text(
+                        selectedUser.title ?? 'User',
                         style: TextStyle(color: Colors.white, fontSize: 25),
                       ),
                     ],
@@ -60,7 +60,7 @@ class NavBar extends StatelessWidget {
                 ListTile(
                   leading: const Icon(Icons.input),
                   title: const Text('Favorites'),
-                  onTap: () => {context.go('/shows')},
+                  onTap: () => {context.goNamed(favorite_movies_route)},
                 ),
                 ListTile(
                   leading: const Icon(Icons.border_color),
