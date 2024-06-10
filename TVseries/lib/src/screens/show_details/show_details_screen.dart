@@ -17,6 +17,7 @@ class ShowDetailPage extends StatefulWidget {
 class ShowDetailPageState extends State<ShowDetailPage> {
   String selectedButton = 'OVERVIEW';
   late Future<List<Censor>>? censorship = apiService.getCensors();
+  late Future<List<Censor>>? preferencedCensorship = apiService.getCensors();
   @override
   Widget build(BuildContext context) {
     String posterUrl = widget.media.MoviePoster;
@@ -58,7 +59,7 @@ class ShowDetailPageState extends State<ShowDetailPage> {
                 height: 500,
                 child: Image.asset(
                   //posterUrl,
-                  'assets/images/$posterUrl',
+                  'assets/images/moviePosters/$posterUrl',
                   //height: 200,
                   fit: BoxFit.fill,
                 ),

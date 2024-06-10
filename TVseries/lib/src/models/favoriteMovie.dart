@@ -16,4 +16,7 @@ class favoriteMovie {
       movieId: json['movieId'],
     );
   }
+  Map<String, dynamic> toJson() {
+    return {'userId': userId, 'movieId': movieId};
+  }
 }

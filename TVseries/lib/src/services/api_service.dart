@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tv_series/src/models/censor.dart';
+import 'package:tv_series/src/models/favoriteMovie.dart';
 import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/models/subUserSub.dart';
 import 'package:tv_series/src/models/user.dart';
@@ -24,8 +25,8 @@ class ApiDataService {
   //String securityServerName = "https://192.168.1.39:7089/api";
   //String serverName = "https://10.0.2.2:7242/api";
   //String securityServerName = "https://10.0.2.2:7089/api";
-  String serverName = "https://192.168.68.102:7242/api";
-  String securityServerName = "https://192.168.68.108:7089/api";
+  String serverName = "https://192.168.1.54:7242/api";
+  String securityServerName = "https://192.168.1.54:7089/api";
 
   int customerId = -1;
   int subUserId = -1;
@@ -406,7 +407,27 @@ class ApiDataService {
     return favoriteMovieList;
   }
 
-  Future<bool> updateFavorites(SubUser subUser, Movie movie) async {
+  Future<List<favoriteMovie?>> getFavoritesClass(int subUserId) async {
+    final userMedia = await _fetchProtectedData<SubUser>(
+      '$serverName/Users/GetUserWithFavoriteMovies?id=$subUserId',
+      (data) => SubUser.fromJson(data),
+    );
+    List<favoriteMovie?> favoriteMovieList = [];
+    if (userMedia != null) {
+      if (userMedia.favoriteMovies != null) {
+        for (var i = 0; i < userMedia.favoriteMovies!.length; i++) {
+          favoriteMovieList.add(userMedia.favoriteMovies![i]);
+        }
+      }
+    } else {
+      logger.d('MY_LOG: this is empty data');
+      return List.empty();
+    }
+    logger.d('MY_LOG: this is favorite movies : $favoriteMovieList');
+    return favoriteMovieList;
+  }
+
+  Future<bool> postFavorites(int userid, Movie movie) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
     final url = '$serverName/FavoriteMovies';
@@ -416,34 +437,38 @@ class ApiDataService {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
-      body: jsonEncode(subUser.toJsonUpdate()),
+      body: json.encode(
+        {
+          'userId': userid,
+          'movieId': movie.id,
+        },
+      ),
     );
 
     if (response.statusCode == 200) {
       return true;
     } else {
-      logger.d('MY_LOG: Failed to update subuser: ${response.statusCode}');
+      logger.d('MY_LOG: Failed to post favorites: ${response.statusCode}');
       return false;
     }
   }
 
-  Future<bool> deleteFavorites(SubUser subUser) async {
+  Future<bool> deleteFavorites(favoriteMovie favoritemovie) async {
     final prefs = await SharedPreferences.getInstance();
     final token = prefs.getString('token');
-    final url = '$serverName/Users';
-    final response = await http.put(
+    final url = '$serverName/FavoriteMovies?id=${favoritemovie.id}';
+    final response = await http.delete(
       Uri.parse(url),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $token',
       },
-      body: jsonEncode(subUser.toJsonUpdate()),
     );
 
-    if (response.statusCode == 200) {
+    if (response.statusCode == 404) {
       return true;
     } else {
-      logger.d('MY_LOG: Failed to update subuser: ${response.statusCode}');
+      logger.d('MY_LOG: Failed to delete favorites: ${response.statusCode}');
       return false;
     }
   }

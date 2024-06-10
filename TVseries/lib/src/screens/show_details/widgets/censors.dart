@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tv_series/src/models/censor.dart';
+import 'package:tv_series/src/models/censorMovieClass.dart';
 import 'package:tv_series/src/models/movie.dart';
 
 class CensorWidget extends StatefulWidget {
@@ -36,7 +37,10 @@ class _CensorWidgetState extends State<CensorWidget> {
 
   void _playVideo() {
     List<Censor> censorListSelected = _selectedCensors();
-    context.goNamed('video', extra: censorListSelected);
+    MovieCensorData videoData =
+        MovieCensorData(censorList: censorListSelected, media: widget.media);
+
+    context.goNamed('video', extra: videoData);
   }
 
   List<Widget> _censorWidgetBuilder() {

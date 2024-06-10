@@ -8,6 +8,7 @@ import 'package:tv_series/src/components/subUserForm.dart';
 import 'package:tv_series/src/components/usersettingv2.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/censor.dart';
+import 'package:tv_series/src/models/censorMovieClass.dart';
 import 'package:tv_series/src/models/movie.dart';
 import 'package:tv_series/src/models/subUserSub.dart';
 import 'package:tv_series/src/screens/initializer/load_screen.dart';
@@ -19,7 +20,7 @@ import 'package:tv_series/src/screens/shows_favorite/fav_shows_screen.dart';
 import 'package:tv_series/src/screens/video_play/video_player_screenv2.dart';
 
 final GoRouter router = GoRouter(
-  initialLocation: '/$favorite_movies_route',
+  initialLocation: '/',
   routes: [
     GoRoute(
       path: '/',
@@ -125,7 +126,9 @@ final GoRouter router = GoRouter(
       path: '/video',
       name: 'video',
       builder: (BuildContext context, GoRouterState state) {
-        return _videoPlay(data: state.extra as List<Censor>);
+        MovieCensorData dataMovieCensor = state.extra as MovieCensorData;
+        return _videoPlay(
+            data: dataMovieCensor.censorList, showMovie: dataMovieCensor.media);
       },
     ),
     GoRoute(
@@ -189,11 +192,14 @@ Widget _showDetailsPage({required Movie data}) {
   );
 }
 
-Widget _videoPlay({required List<Censor> data}) {
+Widget _videoPlay({required List<Censor> data, required Movie showMovie}) {
   return Scaffold(
     appBar: const CustomHeaderBar(),
     drawer: NavBar(),
-    body: VideoPlayerScreen(selectedCensors: data),
+    body: VideoPlayerScreen(
+      selectedCensors: data,
+      movie: showMovie,
+    ),
   );
 }
 

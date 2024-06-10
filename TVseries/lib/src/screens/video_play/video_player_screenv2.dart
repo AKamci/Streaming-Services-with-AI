@@ -2,16 +2,19 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:tv_series/src/models/censor.dart';
+import 'package:tv_series/src/models/movie.dart';
 import 'package:video_player/video_player.dart';
 import 'package:chewie/chewie.dart';
 import 'package:path_provider/path_provider.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
-  const VideoPlayerScreen({super.key, required this.selectedCensors});
+  const VideoPlayerScreen(
+      {super.key, required this.selectedCensors, required this.movie});
 
   @override
   _VideoPlayerScreenState createState() => _VideoPlayerScreenState();
   final List<Censor> selectedCensors;
+  final Movie movie;
 }
 
 class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
@@ -35,7 +38,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
         myIdStrList = '$myIdStrList,${widget.selectedCensors[i].ClassId}';
       }
     }
-    print('bak buuuu benim id liste boluuu $myIdStrList');
+
     return myIdStrList;
   }
 
@@ -53,7 +56,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 
   Future<void> _fetchVideoFromTCP() async {
-    final String ip = '192.168.161.18';
+    final String ip = '192.168.68.101';
     final int port = 9999;
 
     try {
@@ -63,7 +66,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       // Dosya boyutunu alma ve alım işlemi
       int fileSize = 0;
       int receivedBytes = 0;
-      String filename = '858';
+      String filename = '1';
 
       String censorList = censorClassIdList();
 
@@ -140,9 +143,6 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('TCP Video Stream Player'),
-      ),
       body: Center(
         child: _isLoading
             ? CircularProgressIndicator()
