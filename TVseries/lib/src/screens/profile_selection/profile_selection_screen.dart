@@ -59,7 +59,7 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
           duration: const Duration(milliseconds: 200),
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.red,
+              color: Colors.grey,
               image: DecorationImage(
                 opacity: profileImageOpacity,
                 image: AssetImage('assets/images/plusSign.png'),
@@ -129,7 +129,7 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.red,
+          color: Colors.grey,
           image: DecorationImage(
             opacity: profileImageOpacity,
             //image: AssetImage('assets/images/simp.png'),

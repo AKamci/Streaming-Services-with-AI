@@ -76,8 +76,10 @@ class _LoginPageState extends State<LoginPage> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.keyboard_arrow_up, color: Colors.white, size: 30),
-                    Text('Swipe Up', style: TextStyle(color: Colors.white, fontSize: 16)),
+                    Icon(Icons.keyboard_arrow_up,
+                        color: Colors.white, size: 30),
+                    Text('Swipe Up',
+                        style: TextStyle(color: Colors.white, fontSize: 16)),
                   ],
                 ),
               ),

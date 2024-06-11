@@ -8,11 +8,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return MaterialApp.router(
       routerConfig: router,
-      
-      title: 'TVseries',
+
+      title: 'Wayang Digital',
       theme: ThemeData.dark(),
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

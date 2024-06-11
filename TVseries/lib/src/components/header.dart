@@ -4,13 +4,13 @@ class HeaderBar extends StatelessWidget implements PreferredSizeWidget {
   const HeaderBar({
     Key? key,
   }) : super(key: key);
-  
+
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      title: const Text('TVseries'),
+      title: const Text('Wayang Digital'),
       automaticallyImplyLeading: false,
-      
+
       /*
       actions: <Widget>[
         IconButton(
