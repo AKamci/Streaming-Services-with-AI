@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:tv_series/src/constants/routes.dart';
 import 'package:tv_series/src/models/censor.dart';
 import 'package:tv_series/src/models/movie.dart';
+import 'package:tv_series/src/models/subUserSub.dart';
 import 'package:tv_series/src/screens/show_details/widgets/overview.dart';
 import 'package:tv_series/src/screens/show_details/widgets/censors.dart';
 
@@ -17,7 +18,7 @@ class ShowDetailPage extends StatefulWidget {
 class ShowDetailPageState extends State<ShowDetailPage> {
   String selectedButton = 'OVERVIEW';
   late Future<List<Censor>>? censorship = apiService.getCensors();
-  late Future<List<Censor>>? preferencedCensorship = apiService.getCensors();
+  late Future<SubUser> subuser = apiService.getSubUser(apiService.subUserId);
   @override
   Widget build(BuildContext context) {
     String posterUrl = widget.media.MoviePoster;
@@ -36,9 +37,21 @@ class ShowDetailPageState extends State<ShowDetailPage> {
             } else if (snapshot.hasError) {
               return Text('Error: ${snapshot.error}');
             } else {
-              return CensorWidget(
-                censorList: snapshot.data!,
-                media: widget.media,
+              return FutureBuilder<SubUser>(
+                future: subuser,
+                builder: (context, userSnapshot) {
+                  if (userSnapshot.connectionState == ConnectionState.waiting) {
+                    return CircularProgressIndicator();
+                  } else if (userSnapshot.hasError) {
+                    return Text('Error: ${userSnapshot.error}');
+                  } else {
+                    return CensorWidget(
+                      censorList: snapshot.data!,
+                      media: widget.media,
+                      preferencedCensors: userSnapshot.data!.censors,
+                    );
+                  }
+                },
               );
             }
           },

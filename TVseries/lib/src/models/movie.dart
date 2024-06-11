@@ -6,7 +6,7 @@ class Movie {
   final String? ReleaseYear;
   final String? Director;
   final List<String?>? Cast;
-  final String? Category;
+  final List<String>? Category;
   final int? Views;
 
   Movie({
@@ -39,7 +39,7 @@ class Movie {
       ReleaseYear: json['releaseYear'],
       Director: json['director'],
       //Cast: json['cast'],
-      //Category: json['category'],
+      Category: List<String>.from(json['category'] ?? []),
       Views: json['views'],
     );
   }

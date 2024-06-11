@@ -74,7 +74,7 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
     }
   }
 
-  void _navigateToCensorSelection()  {
+  void _navigateToCensorSelection() {
     context.goNamed(censor_selection_route, extra: widget.selectedUser);
   }
 
@@ -128,8 +128,8 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(
-                      'assets/images/${widget.selectedUser.image}'),
+                  image:
+                      AssetImage('assets/images/${widget.selectedUser.image}'),
                   fit: BoxFit.contain,
                 ),
                 borderRadius: BorderRadius.circular(10),
@@ -167,8 +167,7 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
                       ),
                       TextFormField(
                         controller: imageController,
-                        decoration:
-                            InputDecoration(labelText: 'Image URL'),
+                        decoration: InputDecoration(labelText: 'Image URL'),
                       ),
                       TextFormField(
                         controller: titleController,
@@ -182,8 +181,7 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
                       ),
                       TextFormField(
                         controller: descriptionController,
-                        decoration:
-                            InputDecoration(labelText: 'Description'),
+                        decoration: InputDecoration(labelText: 'Description'),
                       ),
                       SizedBox(height: 20),
                       ElevatedButton(
@@ -199,18 +197,17 @@ class _SubUserSettingsPageState extends State<SubUserSettingsPage> {
                         child: Text('Change PIN'),
                       ),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(),
                         onPressed: () {
                           if (selectedUserNo != -1) {
                             _updateSubUser(widget.selectedUser);
                           } else {
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(SnackBar(
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                               content: Text('Please select a User.'),
                             ));
                           }
                         },
-                        child:
-                            Text('Update ${widget.selectedUser.userId}'),
+                        child: Text('Update User'),
                       ),
                     ],
                   ),

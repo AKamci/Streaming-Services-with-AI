@@ -62,7 +62,7 @@ class _ProfileSelectionState extends State<ProfileSelectionPage> {
               color: Colors.red,
               image: DecorationImage(
                 opacity: profileImageOpacity,
-                image: AssetImage('assets/images/simp.png'),
+                image: AssetImage('assets/images/plusSign.png'),
                 fit: BoxFit.contain,
               ),
               borderRadius: BorderRadius.circular(10),

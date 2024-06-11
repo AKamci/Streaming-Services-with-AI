@@ -7,8 +7,12 @@ import 'package:tv_series/src/models/movie.dart';
 class CensorWidget extends StatefulWidget {
   final List<Censor> censorList;
   final Movie media;
-
-  CensorWidget({super.key, required this.censorList, required this.media});
+  final List<int>? preferencedCensors;
+  CensorWidget(
+      {super.key,
+      required this.censorList,
+      required this.media,
+      this.preferencedCensors});
 
   @override
   _CensorWidgetState createState() => _CensorWidgetState();
@@ -21,9 +25,18 @@ class _CensorWidgetState extends State<CensorWidget> {
   void initState() {
     super.initState();
     isChecked = List<bool>.filled(widget.censorList.length, false);
+    censorSelectPreference();
   }
 
-  void censorSelectPreference() {}
+  void censorSelectPreference() {
+    for (var i = 0; i < widget.preferencedCensors!.length; i++) {
+      for (var j = 0; j < widget.censorList.length; j++) {
+        if (widget.preferencedCensors![i] == widget.censorList[j].ClassId) {
+          isChecked[j] = true;
+        }
+      }
+    }
+  }
 
   List<Censor> _selectedCensors() {
     List<Censor> selectCensorList = [];

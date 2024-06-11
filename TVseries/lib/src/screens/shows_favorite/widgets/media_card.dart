@@ -52,42 +52,59 @@ class _MediaCardState extends State<MediaCard> {
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Stack(
         children: [
-          Expanded(
-            child: InkWell(
-              onTap: () {
-                context.goNamed('fav_details_routes', extra: widget.media);
-              }, // Image tapped
-              splashColor: Colors.white10, // Splash color over image
-              child: Ink.image(
-                fit: BoxFit.cover, // Fixes border issues
-                image: AssetImage('assets/images/${widget.media.MoviePoster}'),
+          InkWell(
+            onTap: () {
+              context.goNamed('fav_details_routes', extra: widget.media);
+            },
+            splashColor: Colors.white10,
+            child: Ink.image(
+              fit: BoxFit.fill,
+              image: AssetImage(
+                  'assets/images/moviePosters/${widget.media.MoviePoster}'),
+              height: double.infinity,
+              width: double.infinity,
+            ),
+          ),
+          Align(
+            alignment: Alignment.topRight,
+            child: Container(
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.2),
+                    spreadRadius: 0.2,
+                    blurRadius: 8,
+                  ),
+                ],
+              ),
+              child: IconButton(
+                iconSize: 36.0, // Default icon size is 24.0, so 1.5x is 36.0
+                icon: Icon(
+                  isFavorite ? Icons.star : Icons.star_border,
+                  color: isFavorite ? Colors.yellow : Colors.white,
+                ),
+                onPressed: toggleFavorite,
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(
-                    widget.media.MovieName,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(
+              color: Colors.black54,
+              padding: EdgeInsets.all(8.0),
+              child: Text(
+                widget.media.MovieName,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
                 ),
-                Expanded(
-                  child: IconButton(
-                    icon: Icon(
-                      isFavorite ? Icons.star : Icons.star_border,
-                      color: isFavorite ? Colors.yellow : null,
-                    ),
-                    onPressed: toggleFavorite,
-                  ),
-                ),
-              ],
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
           ),
         ],
