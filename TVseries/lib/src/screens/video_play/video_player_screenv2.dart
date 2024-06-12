@@ -45,7 +45,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   Future<void> _checkForExistingVideo() async {
     final downloadsDir = await getExternalStorageDirectory();
 
-    final videoFile = File('${downloadsDir!.path}/video.mp4');
+    final videoFile = File('${downloadsDir!.path}/1.mp4');
 
     if (await videoFile.exists()) {
       _videoFilePath = videoFile.path;
@@ -56,7 +56,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
   }
 
   Future<void> _fetchVideoFromTCP() async {
-    final String ip = '192.168.68.101';
+    final String ip = '192.168.118.18';
     final int port = 9999;
 
     try {
@@ -64,7 +64,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
       // Dosya boyutunu alma ve alım işlemi
       int receivedBytes = 0;
-      String filename = '1';
+      String filename = widget.movie.id.toString();
 
       String censorList = censorClassIdList();
 
@@ -73,7 +73,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
       socket.add(Uint8List.fromList(censorList.codeUnits));
 
       final downloadsDir = await getExternalStorageDirectory();
-      final videoFile = File('${downloadsDir!.path}/video.mp4');
+      final videoFile = File('${downloadsDir!.path}/$filename.mp4');
       final videoFileSink = videoFile.openWrite();
 
       socket.listen((Uint8List data) {

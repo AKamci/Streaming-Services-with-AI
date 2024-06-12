@@ -53,7 +53,7 @@ class _CensorWidgetState extends State<CensorWidget> {
     MovieCensorData videoData =
         MovieCensorData(censorList: censorListSelected, media: widget.media);
 
-    context.goNamed('video', extra: videoData);
+    context.pushNamed('video', extra: videoData);
   }
 
   List<Widget> _censorWidgetBuilder() {

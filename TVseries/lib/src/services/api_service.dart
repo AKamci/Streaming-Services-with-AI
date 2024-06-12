@@ -25,8 +25,8 @@ class ApiDataService {
   //String securityServerName = "https://192.168.1.39:7089/api";
   //String serverName = "https://10.0.2.2:7242/api";
   //String securityServerName = "https://10.0.2.2:7089/api";
-  String serverName = "https://192.168.1.9:7242/api";
-  String securityServerName = "https://192.168.1.9:7089/api";
+  String serverName = "https://192.168.118.18:7242/api";
+  String securityServerName = "https://192.168.118.18:7089/api";
 
   int customerId = -1;
   int subUserId = -1;
